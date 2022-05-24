@@ -66,13 +66,4 @@ class MuestraTest {
 		assertEquals(muestra.getIdentificacionDeLaPersona(), usuario1);
 	}
 	
-	@Test
-	void testObtenerIdentificacionDeLaPersona() {
-		
-		muestra = new Muestra(imagen2, calificacion1, ubicacion2, usuario2);
-		
-		when(this.usuario1.getIdentificacionDeLaPersona()).thenReturn("usuario");
-		when(this.opinion1.getUsuario()).thenReturn(this.usuario1);
-	}
-
 }

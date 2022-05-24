@@ -7,8 +7,5 @@ public class Opinion {
 	private Calificacion calificacion;
 	private LocalDate fechaDeEmision;
 	
-	public Opinion getUsuario() {
-		return this.usuario;
-	}
 
 }
