@@ -4,4 +4,5 @@ public interface IOrganizacionObserver {
 
 	
 	public void nuevoEvento(Organizacion organizacion, ZonaDeCobertura zona, Muestra muestra);
+	public void update();
 }
