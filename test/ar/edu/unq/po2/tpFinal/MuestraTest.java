@@ -3,6 +3,7 @@ package ar.edu.unq.po2.tpFinal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDate;
@@ -63,6 +64,15 @@ class MuestraTest {
 		assertEquals(muestra.getEspecieFotografiada(), calificacion1);
 		assertEquals(muestra.getUbicacion(), ubicacion1);
 		assertEquals(muestra.getIdentificacionDeLaPersona(), usuario1);
+	}
+	
+	@Test
+	void testObtenerIdentificacionDeLaPersona() {
+		
+		muestra = new Muestra(imagen2, calificacion1, ubicacion2, usuario2);
+		
+		when(this.usuario1.getIdentificacionDeLaPersona()).thenReturn("usuario");
+		when(this.opinion1.getUsuario()).thenReturn(this.usuario1);
 	}
 
 }
