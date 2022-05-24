@@ -28,12 +28,12 @@ public class Ubicacion {
 	}
 	
 	public Double distanciaHasta(Ubicacion ubicacion) {
-		return this.distanciaCoord(this.getLatitud(),this.getLongitud(),ubicacion.getLatitud(),ubicacion.getLongitud());
+		return this.distanciaCoordenada(this.getLatitud(),this.getLongitud(),ubicacion.getLatitud(),ubicacion.getLongitud());
 	}
 	
 	
 
-	private Double distanciaCoord(Double latitud1, Double longitud1, Double latitud2, Double longitud2) {
+	private Double distanciaCoordenada(Double latitud1, Double longitud1, Double latitud2, Double longitud2) {
 		Double radioTierra = 6371d;  
         Double dLat = Math.toRadians(latitud2 - latitud1);  
         Double dLng = Math.toRadians(longitud2 - longitud1);  
