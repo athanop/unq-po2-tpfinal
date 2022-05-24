@@ -17,7 +17,7 @@ public class ZonaDeCobertura implements IListenerZonaCobertura{
 	
 
 	@Override
-	public void añadir(IOrganizacionObserver observer) {
+	public void agregar(IOrganizacionObserver observer) {
 		// TODO Auto-generated method stub
 		
 	}
