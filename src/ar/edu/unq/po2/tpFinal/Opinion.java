@@ -6,11 +6,11 @@ public class Opinion {
 
 	private Calificacion calificacion;
 	private LocalDate fechaDeEmision;
+	private Usuario usuario;
 	
 	public Calificacion getCalificacion() {
 		return calificacion;
 	}
-
 
 	public LocalDate getFechaDeEmision() {
 		return fechaDeEmision;
@@ -19,11 +19,19 @@ public class Opinion {
 	public void setCalificacion(Calificacion calificacion) {
 		this.calificacion = calificacion;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
 	
-	public Opinion(Calificacion calificacion, LocalDate fechaDeEmision) {
+	public Opinion(Calificacion calificacion, LocalDate fechaDeEmision, Usuario usuario) {
 		this.setCalificacion(calificacion);
 		this.fechaDeEmision = fechaDeEmision;
+		this.usuario = usuario;
 	}
+
+
+	
 
 
 	
