@@ -24,12 +24,12 @@ class OpinionTestCase {
 	}
 
 	@Test
-	void testOpinionConCalificaciónDeChincheFoliada() {
+	void testOpinionConCalificacionDeChincheFoliada() {
 		assertEquals(opinion.getCalificacion(), calificacionDeOpinion);
 	}
 
 	@Test
-	void testOpinionConCalificaciónImagenPocoClara() {
+	void testOpinionConCalificacionImagenPocoClara() {
 		calificacionDeOpinion = Calificacion.IMAGEN_POCO_CLARA;
 		opinion.setCalificacion(calificacionDeOpinion);
 		assertEquals(opinion.getCalificacion(), calificacionDeOpinion);
