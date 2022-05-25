@@ -46,8 +46,4 @@ class OpinionTestCase {
 		assertEquals(opinion.getUsuario(), usuario);
 	}
 	
-	@Test
-	void testborrar() {
-		System.out.println("hola");
-	}
 }
