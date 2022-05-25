@@ -43,7 +43,6 @@ class MuestraTestCase {
 		opinion2 = mock(Opinion.class);
 		opinion3 = mock(Opinion.class);
 		opinion4 = mock(Opinion.class);
-		calificacion1 = mock(Calificacion.class);
 		ubicacion1 = mock(Ubicacion.class);
 		ubicacion2 = mock(Ubicacion.class);
 		ubicacion3 = mock(Ubicacion.class);
@@ -57,11 +56,9 @@ class MuestraTestCase {
 
 	@Test
 	void testConstructor() {
-		
-		muestra = new Muestra(imagen1, calificacion1, ubicacion1, usuario1);
-		
+		muestra = new Muestra(imagen1, Calificacion.CHINCHE_FOLIADA, ubicacion1, usuario1);
 		assertEquals(muestra.getFotoVinchuca(), imagen1);
-		assertEquals(muestra.getEspecieFotografiada(), calificacion1);
+		assertEquals(muestra.getEspecieFotografiada(), Calificacion.CHINCHE_FOLIADA);
 		assertEquals(muestra.getUbicacion(), ubicacion1);
 		assertEquals(muestra.getIdentificacionDeLaPersona(), usuario1);
 	}
