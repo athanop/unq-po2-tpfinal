@@ -1,7 +1,7 @@
 package ar.edu.unq.po2.tpFinal;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -15,60 +15,70 @@ class MuestraTestCase {
 
 	private Muestra muestra;
 	private LocalDate fechaActual;
-	private Usuario usuario1;
-	private Usuario usuario2;
-	private Usuario usuario3;
-	private Usuario usuario4;
-	private Opinion opinion1;
-	private Opinion opinion2;
-	private Opinion opinion3;
-	private Opinion opinion4;
-	private Ubicacion ubicacion1;
-	private Ubicacion ubicacion2;
-	private Ubicacion ubicacion3;
-	private Ubicacion ubicacion4;
+	private Usuario usuarioBasico;
+	private Usuario usuarioExperto;
+	private Usuario nahuelExperto;
+	private Usuario sofiaBasico;
+	private Opinion opinionChincheFoliada;
+	private Opinion opinionChincheFoliada2;
+	private Opinion opinionGuasayana;
+	private Opinion opinionGuasayana2;
+	private Ubicacion ubicacion;
+	private ZonaDeCobertura zonaDeCobertura;
 	private Calificacion calificacion1;
-	private BufferedImage imagen1;
-	private BufferedImage imagen2;
-	private BufferedImage imagen3;
-	private BufferedImage imagen4;
+	private BufferedImage fotoVinchuca;
 
 	@BeforeEach
 	void SetUp() throws Exception {
-		usuario1 = mock(Usuario.class);
-		usuario2 = mock(Usuario.class);
-		usuario3 = mock(Usuario.class);
-		usuario4 = mock(Usuario.class);
-		opinion1 = mock(Opinion.class);
-		opinion2 = mock(Opinion.class);
-		opinion3 = mock(Opinion.class);
-		opinion4 = mock(Opinion.class);
-		ubicacion1 = mock(Ubicacion.class);
-		ubicacion2 = mock(Ubicacion.class);
-		ubicacion3 = mock(Ubicacion.class);
-		ubicacion4 = mock(Ubicacion.class);
-		imagen1 = mock(BufferedImage.class);
-		imagen2 = mock(BufferedImage.class);
-		imagen3 = mock(BufferedImage.class);
-		imagen4 = mock(BufferedImage.class);
-		this.fechaActual = LocalDate.now();
+
+		usuarioBasico = mock(Usuario.class);
+		usuarioExperto = mock(Usuario.class);
+		nahuelExperto = mock(Usuario.class);
+		sofiaBasico = mock(Usuario.class);
+		opinionChincheFoliada = mock(Opinion.class);
+		opinionChincheFoliada2 = mock(Opinion.class);
+		opinionGuasayana = mock(Opinion.class);
+		opinionGuasayana2 = mock(Opinion.class);
+
+		ubicacion = mock(Ubicacion.class);
+		zonaDeCobertura = mock(ZonaDeCobertura.class);
+		fotoVinchuca = mock(BufferedImage.class);
+
+		muestra = new Muestra(fotoVinchuca, ubicacion, sofiaBasico, opinionGuasayana, LocalDate.of(2022, 5, 13));
+		
+		when(usuarioBasico.esUsuarioBasico()).thenReturn(true);
+		when(usuarioExperto.esUsuarioExperto()).thenReturn(true);
+		when(nahuelExperto.esUsuarioExperto()).thenReturn(true);
+		when(sofiaBasico.esUsuarioBasico()).thenReturn(true);
+		
+		when(opinionGuasayana.getCalificacion()).thenReturn("GUASAYANA");
+		when(opinionGuasayana.getFechaDeEmision()).thenReturn(LocalDate.now());
+		when(opinionGuasayana2.getCalificacion()).thenReturn("GUASAYANA");
+		when(opinionGuasayana2.getFechaDeEmision()).thenReturn(LocalDate.now());
+		when(opinionChincheFoliada.getCalificacion()).thenReturn("CHINCHE_FOLIADA");
+		when(opinionChincheFoliada.getFechaDeEmision()).thenReturn(LocalDate.now());
+		when(opinionChincheFoliada2.getCalificacion()).thenReturn("CHINCHE_FOLIADA");
+		when(opinionChincheFoliada2.getFechaDeEmision()).thenReturn(LocalDate.now());
 	}
 
 	@Test
 	void testConstructor() {
-		muestra = new Muestra(imagen1, Calificacion.CHINCHE_FOLIADA, ubicacion1, usuario1);
-		assertEquals(muestra.getFotoVinchuca(), imagen1);
-		//assertEquals(muestra.getEspecieFotografiada(), Calificacion.CHINCHE_FOLIADA);
-		assertEquals(muestra.getListEspecieFotografiada().size(), 1);
-		assertEquals(muestra.getUbicacion(), ubicacion1);
-		assertEquals(muestra.getIdentificacionDeLaPersona(), usuario1);
+		assertEquals("GUASAYANA", muestra.getEspecieDeVinchuca());
+		assertTrue(muestra.contieneLaOpinion(opinionGuasayana));
+		assertEquals(fotoVinchuca, muestra.getFotoVinchuca());
+		assertEquals(ubicacion, muestra.getUbicacion());
+		when(muestra.getIdentificacionPropietarioDeLaMuestra()).thenReturn("Sofia");
+		assertEquals("Sofia", muestra.getIdentificacionPropietarioDeLaMuestra());
+		assertEquals(LocalDate.of(2022, 5, 13), muestra.getFechaDeCreacion());
+		assertTrue(muestra.getZonasDeCobertura().isEmpty());	
+		assertEquals(1, muestra.getHistorialDeOpiniones().size());
 	}
-	
+
 	@Test
-	void testMuestraConUnaSolaOpinionObtieneResultadoActualComoChincheFoliada() {
-		Calificacion resultadoActual = muestra.resultadoActual();
-		
-		assertEquals(resultadoActual, Calificacion.CHINCHE_FOLIADA);
+	void testMuestraConUnaSolaOpinionObtieneResultadoActualComoGuasayana() {
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, usuarioBasico);
+
+		assertEquals("GUASAYANA", muestra.getResultadoActual());
 	}
-	
+
 }

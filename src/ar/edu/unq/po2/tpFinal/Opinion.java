@@ -6,33 +6,24 @@ public class Opinion {
 
 	private Calificacion calificacion;
 	private LocalDate fechaDeEmision;
-	private Usuario usuario;
-	
-	public Calificacion getCalificacion() {
-		return calificacion;
+
+	public String getCalificacion() {
+		return calificacion.toString();
 	}
 
 	public LocalDate getFechaDeEmision() {
 		return fechaDeEmision;
 	}
-	
-	public void setCalificacion(Calificacion calificacion) {
+
+	public Opinion(Calificacion calificacion) {
+		fechaDeEmision = LocalDate.now();
 		this.calificacion = calificacion;
+
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	
-	public Opinion(Calificacion calificacion, LocalDate fechaDeEmision, Usuario usuario) {
-		this.setCalificacion(calificacion);
-		this.fechaDeEmision = fechaDeEmision;
-		this.usuario = usuario;
+	public void setCalificacion(Calificacion calificacionDeOpinion) {
+		this.calificacion = calificacionDeOpinion;
+		
 	}
 
-
-	
-
-
-	
 }

@@ -28,19 +28,19 @@ class UsuarioTest {
 	void testConstructorUsuario() {
 		assertEquals(usuarioBasico1.getAplicacion(), app);
 	}
-	
+
 	@Test
 	void testUsuarioBasicoSubeUnaMuestraALaApp() {
 		muestra2 = new Muestra(imagen1, Calificacion.GUASAYANA, ubicacion1, usuarioBasico1);
 		usuarioBasico1.enviarMuestra(muestra2);
-		
+
 		assertTrue(usuarioBasico1.subioMuestraAlSistema(muestra2));
 	}
-	
+
 	@Test
 	void testUsuarioBasicoOpinaUnaFotoDeUnaMuestraYaSubidaEnLaApp() {
 		usuarioBasico1.opinar(Calificacion.IMAGEN_POCO_CLARA, muestra);
-		
+
 		assertEquals(muestra.getListEspecieFotografiada().size(), 2);
 	}
 
