@@ -58,9 +58,17 @@ class MuestraTestCase {
 	void testConstructor() {
 		muestra = new Muestra(imagen1, Calificacion.CHINCHE_FOLIADA, ubicacion1, usuario1);
 		assertEquals(muestra.getFotoVinchuca(), imagen1);
-		assertEquals(muestra.getEspecieFotografiada(), Calificacion.CHINCHE_FOLIADA);
+		//assertEquals(muestra.getEspecieFotografiada(), Calificacion.CHINCHE_FOLIADA);
+		assertEquals(muestra.getListEspecieFotografiada().size(), 1);
 		assertEquals(muestra.getUbicacion(), ubicacion1);
 		assertEquals(muestra.getIdentificacionDeLaPersona(), usuario1);
+	}
+	
+	@Test
+	void testMuestraConUnaSolaOpinionObtieneResultadoActualComoChincheFoliada() {
+		Calificacion resultadoActual = muestra.resultadoActual();
+		
+		assertEquals(resultadoActual, Calificacion.CHINCHE_FOLIADA);
 	}
 	
 }

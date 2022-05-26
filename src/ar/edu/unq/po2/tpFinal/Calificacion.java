@@ -9,7 +9,8 @@ public enum Calificacion {
 	IMAGEN_POCO_CLARA,
 	INFESTANS,
 	SORDIDA,
-	GUASAYANA;
+	GUASAYANA,
+	NO_DEFINIDO;
 	
 	
 }
