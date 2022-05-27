@@ -103,8 +103,8 @@ public class Muestra {
 		this.estadoActual.actualizarEstado(this);
 	}
 
-	public Set<Muestra> muestrasCercanas(Set<Muestra> muestras, double distancia) {
-		return this.ubicacion.muestrasCercanas(muestras, distancia);
+	public void muestrasCercanas(Muestra muestra, double distancia) {
+		this.ubicacion.muestrasCercanas(muestra, distancia);
 	}
 
 	protected void avisarVerificacionAZonasDeCobertura() {
