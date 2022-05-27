@@ -11,16 +11,17 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 	private Integer epicentro;
 	private Integer radio;
 	private List<Muestra> muestras;
-	private Ubicacion ubicacion; //le agregue esto por el muestras cercanas
-
+	
+	public List<Muestra> getMuestras() {
+		return muestras;
+	}
 	
 	
-	public ZonaDeCobertura(String nombreDeZona, Integer epicentro, Integer radio, Ubicacion ubicacion) {
+	public ZonaDeCobertura(String nombreDeZona, Integer epicentro, Integer radio) {
 		this.nombreDeZona = nombreDeZona;
 		this.epicentro = epicentro;
 		this.radio = radio;
 		this.muestras = new ArrayList<Muestra>();
-		this.ubicacion = ubicacion;
 	}
 
 	public Boolean seSolapaCon(ZonaDeCobertura zona) {
@@ -63,20 +64,11 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 
 	}
 
-	//tengo q terminar de revisar esto para ver como comparar las muestras por el error del hashcode
-	public Set<Muestra> muestrasCercanas(Muestra muestra, double distancia) {
-		Set<Muestra> retorno = new HashSet<Muestra>();
-		for (Muestra m : this.muestras) {
-			if (this.ubicacion.distanciaHasta(muestra.getUbicacion()) <= distancia) {
-				retorno.add(muestra);
-			}
-		}
-		return retorno;
-		
-	}
 	
 	//agrego este metodo para probar las muestras que voy agregando al método muestras cercanas
 	public void agregarMuestra(Muestra muestra) {
-		this.muestras.add(muestra);
+		this.getMuestras().add(muestra);
 	}
+
+	
 }

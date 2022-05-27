@@ -62,8 +62,15 @@ public class Ubicacion {
 	}
 
 
-	public void muestrasCercanas(Muestra muestra, double distancia) {
-		this.zona.muestrasCercanas(muestra, distancia);
-	}
+	//tengo q terminar de revisar esto para ver como comparar las muestras por el error del hashcode
+	public Set<Muestra> muestrasCercanas(Muestra muestra, double distancia) {
+		Set<Muestra> muestrascercanas = new HashSet<Muestra>();
+		for (Muestra m : zona.getMuestras()) {
+			if (m.getUbicacion().distanciaHasta(muestra.getUbicacion()) <= distancia) {
+					muestrascercanas.add(m);
+			}
+		}
+			return muestrascercanas;
+		}
 
 }
