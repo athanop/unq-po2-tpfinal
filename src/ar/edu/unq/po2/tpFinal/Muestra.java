@@ -65,6 +65,10 @@ public class Muestra {
 		return this.historialDeOpiniones;
 	}
 
+	public EstadoDeMuestra getEstadoMuestra() {
+		return estadoActual;
+	}
+
 	protected void setEstadoDeMuestra(EstadoDeMuestra estado) {
 		this.estadoActual = estado;
 	}

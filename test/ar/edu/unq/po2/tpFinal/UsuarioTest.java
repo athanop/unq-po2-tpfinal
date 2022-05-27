@@ -16,7 +16,7 @@ class UsuarioTest {
 	Ubicacion ubicacion1;
 	BufferedImage imagen1;
 	Opinion opinion;
-
+/*
 	@BeforeEach
 	void setUp() throws Exception {
 		app = new SistemaMuestra();
@@ -43,5 +43,6 @@ class UsuarioTest {
 
 		assertEquals(muestra.getListEspecieFotografiada().size(), 2);
 	}
-
+*/
 }
+
