@@ -9,16 +9,16 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 
 	private String nombreDeZona;
 	private Integer epicentro;
-	private Integer distanciaEnKms;
+	private Integer radio;
 	private List<Muestra> muestras;
 	private Ubicacion ubicacion; //le agregue esto por el muestras cercanas
 
 	
 	
-	public ZonaDeCobertura(String nombreDeZona, Integer epicentro, Integer distanciaEnKms, Ubicacion ubicacion) {
+	public ZonaDeCobertura(String nombreDeZona, Integer epicentro, Integer radio, Ubicacion ubicacion) {
 		this.nombreDeZona = nombreDeZona;
 		this.epicentro = epicentro;
-		this.distanciaEnKms = distanciaEnKms;
+		this.radio = radio;
 		this.muestras = new ArrayList<Muestra>();
 		this.ubicacion = ubicacion;
 	}
