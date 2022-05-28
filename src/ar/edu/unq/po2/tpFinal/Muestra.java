@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.function.BinaryOperator;
 
@@ -77,7 +78,7 @@ public class Muestra {
 		return this.fechaDeUltimaVotacion;
 	}
 
-	public ArrayList<ZonaDeCobertura> getZonasDeCobertura() {
+	public List<ZonaDeCobertura> getZonasDeCobertura() {
 		return this.zonasDeCobertura;
 	}
 
@@ -113,7 +114,7 @@ public class Muestra {
 		}
 	}
 
-	public ArrayList<String> getOpiniones() {
+	public List<String> getOpiniones() {
 		ArrayList<String> opiniones = new ArrayList<String>();
 		for (HashMap.Entry<Usuario, Opinion> opinionDeUsuario : historialDeOpiniones.entrySet()) {
 			opiniones.add((opinionDeUsuario.getValue()).getCalificacion());
