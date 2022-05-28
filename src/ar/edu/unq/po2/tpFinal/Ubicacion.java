@@ -9,7 +9,7 @@ public class Ubicacion {
 
 	private Double latitud;
 	private Double longitud;
-	private ZonaDeCobertura zona; //le agregue esto por el muestras cercanas ya q se lo estoy delegando a la zona
+	private ZonaDeCobertura zona; 
 
 	public Double getLatitud() {
 		return latitud;
@@ -24,9 +24,10 @@ public class Ubicacion {
 		this.longitud = 0d;
 	}
 
-	public Ubicacion(Double latitud, Double longitud) {
+	public Ubicacion(Double latitud, Double longitud, ZonaDeCobertura zona) {
 		this.latitud = latitud;
 		this.longitud = longitud;
+		this.zona = zona;
 	}
 
 	public Double distanciaHasta(Ubicacion ubicacion) {
@@ -57,15 +58,19 @@ public class Ubicacion {
 		return resultado;
 	}
 
+	public ZonaDeCobertura getZona() {
+		return zona;
+	}
+
 	public Boolean ubicacionEstaAMenosDe(Double kilometros, Ubicacion ubicacion) {
 		return this.distanciaHasta(ubicacion) < kilometros;
 	}
 
 
-	//tengo q terminar de revisar esto para ver como comparar las muestras por el error del hashcode
+	
 	public Set<Muestra> muestrasCercanas(Muestra muestra, double distancia) {
 		Set<Muestra> muestrascercanas = new HashSet<Muestra>();
-		for (Muestra m : zona.getMuestras()) {
+		for (Muestra m : this.zona.getMuestras()) {
 			if (m.getUbicacion().distanciaHasta(muestra.getUbicacion()) <= distancia) {
 					muestrascercanas.add(m);
 			}

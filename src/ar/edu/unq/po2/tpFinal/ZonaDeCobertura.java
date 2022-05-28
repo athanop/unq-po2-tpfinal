@@ -13,7 +13,7 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 	private List<Muestra> muestras;
 	
 	public List<Muestra> getMuestras() {
-		return muestras;
+		return this.muestras;
 	}
 	
 	
@@ -68,6 +68,21 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 	//agrego este metodo para probar las muestras que voy agregando al método muestras cercanas
 	public void agregarMuestra(Muestra muestra) {
 		this.getMuestras().add(muestra);
+	}
+
+
+	public String getNombreDeZona() {
+		return nombreDeZona;
+	}
+
+
+	public Integer getEpicentro() {
+		return epicentro;
+	}
+
+
+	public Integer getRadio() {
+		return radio;
 	}
 
 	

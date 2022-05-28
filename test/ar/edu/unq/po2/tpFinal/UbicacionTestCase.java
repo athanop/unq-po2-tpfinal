@@ -12,43 +12,39 @@ import org.junit.jupiter.api.Test;
 
 class UbicacionTestCase {
 
-	Ubicacion ubicacion1, ubicacion2, ubicacion3, ubicacion4;
+	Ubicacion ubicacion1, ubicacion2, ubicacion3, ubicacion4, ubicacion5;
 	List<Ubicacion> ubicaciones, resultado;
 	Muestra muestra;
 	Muestra otraMuestraA1200KM;
-	Muestra otraMuestraA500km;
+	Muestra otraMuestraMuyLejos;
 	ZonaDeCobertura zona;
-	List<Muestra> muestras;
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		zona = new ZonaDeCobertura("Berazategui", 1, 1500);
-		ubicacion1 = new Ubicacion(50d, 40d);
-		ubicacion2 = new Ubicacion(40d, 50d);
-		ubicacion3 = new Ubicacion(10d, 20d);
+		
+		zona = new ZonaDeCobertura("Wilde", 1, 30);
+		
+		muestra = mock(Muestra.class);
+		otraMuestraA1200KM = mock(Muestra.class);
+		otraMuestraMuyLejos = mock(Muestra.class);
+		ubicacion1 = new Ubicacion(50d, 40d,zona);
+		ubicacion2 = new Ubicacion(40d, 50d,zona);
+		ubicacion3 = new Ubicacion(10d, 20d,zona);
+		ubicacion5 = new Ubicacion(60d, 60d,zona);
+		when(otraMuestraA1200KM.getUbicacion()).thenReturn(ubicacion1); //ubicacion 50 40
+		when(muestra.getUbicacion()).thenReturn(ubicacion2); //ubicacion 40 50
+		when(otraMuestraMuyLejos.getUbicacion()).thenReturn(ubicacion5);
+		zona.agregarMuestra(otraMuestraA1200KM);
+		zona.agregarMuestra(otraMuestraMuyLejos);
+		
+		
 		ubicacion4 = new Ubicacion();
 		ubicaciones = new ArrayList<Ubicacion>();
-		muestras = new ArrayList<Muestra>();
 		ubicaciones.add(ubicacion2);
 		ubicaciones.add(ubicacion3);
 		resultado = new ArrayList<Ubicacion>();
 		resultado.add(ubicacion2);
-		ubicacion1 = mock(Ubicacion.class);
-		ubicacion2 = mock(Ubicacion.class);
-		muestra = mock(Muestra.class);
-		otraMuestraA1200KM = mock(Muestra.class);
-		otraMuestraA500km = mock(Muestra.class);
 		
-		when(ubicacion1.getLatitud()).thenReturn(30d);
-		when(ubicacion1.getLongitud()).thenReturn(30d);
-		when(otraMuestraA1200KM.getUbicacion()).thenReturn(ubicacion1); //ubicacion 30 30
-		when(muestra.getUbicacion()).thenReturn(ubicacion1); //ubicacion 30 30
-		when(ubicacion2.getLatitud()).thenReturn(30d);
-		when(ubicacion2.getLongitud()).thenReturn(25d);
-		when(otraMuestraA500km.getUbicacion()).thenReturn(ubicacion2);
-		
-		zona.agregarMuestra(otraMuestraA500km);
-		zona.agregarMuestra(otraMuestraA1200KM);
 		
 	}
 
@@ -73,5 +69,14 @@ class UbicacionTestCase {
 	public void testUbicacionesAMenosDe1500km() {
 		assertEquals(resultado, ubicacion1.getUbicacionesAMenosDe(1500d, ubicaciones)); 
 	}
+	
+
+	@Test
+	void testMuestrasAMenosDe1359KmEnLaZonaDeCobertura() {
+		
+		ubicacion1.getZona().agregarMuestra(otraMuestraA1200KM);
+		ubicacion1.getZona().agregarMuestra(otraMuestraMuyLejos);
+		assertTrue(ubicacion1.muestrasCercanas(muestra, 1359.2545257553352).contains(otraMuestraA1200KM)); //confio en que sigue funcionando bien
+		}
 	
 }
