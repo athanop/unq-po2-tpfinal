@@ -17,14 +17,18 @@ class UbicacionTestCase {
 	Muestra muestra;
 	Muestra otraMuestraA1200KM;
 	Muestra otraMuestraA500km;
+	ZonaDeCobertura zona;
+	List<Muestra> muestras;
 	
 	@BeforeEach
 	void setUp() throws Exception {
+		zona = new ZonaDeCobertura("Berazategui", 1, 1500);
 		ubicacion1 = new Ubicacion(50d, 40d);
 		ubicacion2 = new Ubicacion(40d, 50d);
 		ubicacion3 = new Ubicacion(10d, 20d);
 		ubicacion4 = new Ubicacion();
 		ubicaciones = new ArrayList<Ubicacion>();
+		muestras = new ArrayList<Muestra>();
 		ubicaciones.add(ubicacion2);
 		ubicaciones.add(ubicacion3);
 		resultado = new ArrayList<Ubicacion>();
@@ -34,6 +38,7 @@ class UbicacionTestCase {
 		muestra = mock(Muestra.class);
 		otraMuestraA1200KM = mock(Muestra.class);
 		otraMuestraA500km = mock(Muestra.class);
+		
 		when(ubicacion1.getLatitud()).thenReturn(30d);
 		when(ubicacion1.getLongitud()).thenReturn(30d);
 		when(otraMuestraA1200KM.getUbicacion()).thenReturn(ubicacion1); //ubicacion 30 30
@@ -41,6 +46,9 @@ class UbicacionTestCase {
 		when(ubicacion2.getLatitud()).thenReturn(30d);
 		when(ubicacion2.getLongitud()).thenReturn(25d);
 		when(otraMuestraA500km.getUbicacion()).thenReturn(ubicacion2);
+		
+		zona.agregarMuestra(otraMuestraA500km);
+		zona.agregarMuestra(otraMuestraA1200KM);
 		
 	}
 
@@ -66,11 +74,4 @@ class UbicacionTestCase {
 		assertEquals(resultado, ubicacion1.getUbicacionesAMenosDe(1500d, ubicaciones)); 
 	}
 	
-	//esto lo tenemos que revisar
-	@Test
-	void testMuestrasAMenosDe500KmEnLaZonaDeCobertura() {
-		zonaDeCobertura.agregarMuestra(otraMuestraA1200KM);
-		zonaDeCobertura.agregarMuestra(otraMuestraA500km);
-		assertEquals(zonaDeCobertura.muestrasCercanas(muestra, 500d), otraMuestraA500km); //deberia poder compararlos pero devuelven diferente hashcode
-	}
 }

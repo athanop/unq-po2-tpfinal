@@ -46,23 +46,23 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 
 	}
 
-	public void muestraVerificada(Muestra muestra) {
-		this.avisarNuevaVerificacion(muestra);
-	}
+	//public void muestraVerificada(Muestra muestra) {
+	//	this.avisarNuevaVerificacion(muestra);
+	//}
 
-	private void avisarNuevaVerificacion(Muestra muestra) {
-		for (IOrganizacionObserver observer : observers) {
-			observer.actualizarNuevaVerificacion(this, muestra);
-		}
+	//private void avisarNuevaVerificacion(Muestra muestra) {
+	//	for (IOrganizacionObserver observer : observers) {
+	//		observer.actualizarNuevaVerificacion(this, muestra);
+	//	}
 
-	}
+//	}
 
-	private void avisarNuevaMuestra(Muestra muestra) {
-		for (IOrganizacionObserver observer : observers) {
-			observer.actualizarNuevaMuestra(this, muestra);
-		}
+	//private void avisarNuevaMuestra(Muestra muestra) {
+	//	for (IOrganizacionObserver observer : observers) {
+	//		observer.actualizarNuevaMuestra(this, muestra);
+	//	}
 
-	}
+	//}
 
 	
 	//agrego este metodo para probar las muestras que voy agregando al método muestras cercanas
