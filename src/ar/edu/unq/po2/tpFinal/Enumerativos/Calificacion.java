@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.tpFinal;
+package ar.edu.unq.po2.tpFinal.Enumerativos;
 
 public enum Calificacion {
 

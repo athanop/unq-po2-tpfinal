@@ -1,4 +1,4 @@
-package ar.edu.unq.po2.tpFinal;
+package ar.edu.unq.po2.tpFinal.EstadoDeUsuario;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import ar.edu.unq.po2.tpFinal.AplicacionWebDeMuestra;
+import ar.edu.unq.po2.tpFinal.Muestra;
+import ar.edu.unq.po2.tpFinal.Opinion;
 
 // import java.util.function.BooleanSupplier;
 

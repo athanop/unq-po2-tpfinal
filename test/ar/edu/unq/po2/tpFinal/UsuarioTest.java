@@ -7,6 +7,9 @@ import java.awt.image.BufferedImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.Usuario;
+import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
+
 class UsuarioTest {
 
 	Usuario usuarioBasico1; // sut

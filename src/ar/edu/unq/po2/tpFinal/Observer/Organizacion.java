@@ -1,4 +1,9 @@
-package ar.edu.unq.po2.tpFinal;
+package ar.edu.unq.po2.tpFinal.Observer;
+
+import ar.edu.unq.po2.tpFinal.Muestra;
+import ar.edu.unq.po2.tpFinal.Enumerativos.tipoDeOrganizacion;
+import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
+import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
 
 public class Organizacion implements IOrganizacionObserver{
 

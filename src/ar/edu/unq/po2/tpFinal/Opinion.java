@@ -2,13 +2,15 @@ package ar.edu.unq.po2.tpFinal;
 
 import java.time.LocalDate;
 
+import ar.edu.unq.po2.tpFinal.Enumerativos.Calificacion;
+
 public class Opinion {
 
 	private Calificacion calificacion;
 	private LocalDate fechaDeEmision;
 
-	public String getCalificacion() {
-		return calificacion.toString();
+	public Calificacion getCalificacion() {
+		return calificacion;
 	}
 
 	public LocalDate getFechaDeEmision() {

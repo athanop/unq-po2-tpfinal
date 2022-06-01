@@ -1,7 +1,9 @@
-package ar.edu.unq.po2.tpFinal;
+package ar.edu.unq.po2.tpFinal.FiltroDeBusqueda;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ar.edu.unq.po2.tpFinal.Muestra;
 
 public class FiltroDeMuestraCompuesto implements IFiltroBusquedaMuestra {
 

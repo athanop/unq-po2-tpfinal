@@ -6,6 +6,9 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.tpFinal.Observer.Organizacion;
+import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
+
 class ZonaDeCoberturaTestCase {
 
 	ZonaDeCobertura zonaDeCobertura;

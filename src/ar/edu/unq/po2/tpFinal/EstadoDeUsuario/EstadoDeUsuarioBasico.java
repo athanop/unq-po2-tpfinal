@@ -1,10 +1,13 @@
-package ar.edu.unq.po2.tpFinal;
+package ar.edu.unq.po2.tpFinal.EstadoDeUsuario;
+
+import ar.edu.unq.po2.tpFinal.Muestra;
+import ar.edu.unq.po2.tpFinal.Opinion;
 
 public class EstadoDeUsuarioBasico implements EstadoDeUsuario {
 
 	@Override
 	public void opinarSobreMuestra(Muestra muestra, Opinion opinion, Usuario usuario) throws Exception {
-		muestra.agregarOpinion(opinion, usuario);
+		muestra.agregarLaOpinionDelUsuario(opinion, usuario);
 	}
 
 	@Override

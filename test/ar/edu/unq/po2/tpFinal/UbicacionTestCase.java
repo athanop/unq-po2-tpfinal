@@ -10,6 +10,9 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
+import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
+
 class UbicacionTestCase {
 
 	Ubicacion ubicacion1, ubicacion2, ubicacion3, ubicacion4, ubicacion5;

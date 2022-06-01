@@ -1,4 +1,8 @@
-package ar.edu.unq.po2.tpFinal;
+package ar.edu.unq.po2.tpFinal.EstadoDeMuestra;
+
+import ar.edu.unq.po2.tpFinal.Muestra;
+import ar.edu.unq.po2.tpFinal.Opinion;
+import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.Usuario;
 
 public class EstadoMuestraVotadaPorExperto implements EstadoDeMuestra {
 
@@ -18,7 +22,7 @@ public class EstadoMuestraVotadaPorExperto implements EstadoDeMuestra {
 
 	@Override
 	public void actualizarEstado(Muestra muestra) {
-		if (muestra.coincidenDosExpertosEnSuOpinion()) {
+		if (muestra.coincidenDosExpertosEnSuCalificacionDeOpinion()) {
 			muestra.setEstadoDeMuestra(new EstadoDeMuestraVerificada());
 			muestra.avisarVerificacionAZonasDeCobertura();
 		}

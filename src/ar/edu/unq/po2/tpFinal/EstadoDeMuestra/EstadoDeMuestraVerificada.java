@@ -1,4 +1,8 @@
-package ar.edu.unq.po2.tpFinal;
+package ar.edu.unq.po2.tpFinal.EstadoDeMuestra;
+
+import ar.edu.unq.po2.tpFinal.Muestra;
+import ar.edu.unq.po2.tpFinal.Opinion;
+import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.Usuario;
 
 public class EstadoDeMuestraVerificada implements EstadoDeMuestra {
 

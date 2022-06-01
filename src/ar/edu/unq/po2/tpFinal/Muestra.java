@@ -8,20 +8,29 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.BinaryOperator;
+
+import ar.edu.unq.po2.tpFinal.Enumerativos.Calificacion;
+import ar.edu.unq.po2.tpFinal.EstadoDeMuestra.EstadoDeMuestra;
+import ar.edu.unq.po2.tpFinal.EstadoDeMuestra.EstadoDeMuestraVotada;
+import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.Usuario;
+import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
+import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
 
 public class Muestra {
 
 	private BufferedImage fotoVinchuca;
-	private Ubicacion ubicacion;
+	private Calificacion especie;
 	private Usuario usuario;
+	private Ubicacion ubicacion;
 	private EstadoDeMuestra estadoActual;
-	private ArrayList<ZonaDeCobertura> zonasDeCobertura;
-	private Opinion opinion;
-	private LinkedHashMap<Usuario, Opinion> historialDeOpiniones;
 	private LocalDate fechaDeCreacion;
 	private LocalDate fechaDeUltimaVotacion;
+	private Map<Usuario, Opinion> historialDeOpiniones;
+	private List<ZonaDeCobertura> zonasDeCobertura;
+	
 
 	public Muestra(BufferedImage fotoVinchuca, Ubicacion ubicacion, Usuario usuario, Opinion opinion,
 			LocalDate fechaDeCreacion) throws Exception {
@@ -31,19 +40,31 @@ public class Muestra {
 		this.usuario = usuario;
 		this.estadoActual = new EstadoDeMuestraVotada();
 		this.zonasDeCobertura = new ArrayList<ZonaDeCobertura>();
-		this.opinion = opinion;
-		this.historialDeOpiniones = new LinkedHashMap<Usuario, Opinion>();
+		this.historialDeOpiniones = new HashMap<Usuario, Opinion>();
 		this.agregarLaOpinionDelUsuario(opinion, usuario);
 		this.fechaDeCreacion = fechaDeCreacion;
 		this.fechaDeUltimaVotacion = fechaDeCreacion;
 	}
+	
+	public LocalDate getFechaDeCreacion() {
+		return this.fechaDeCreacion;
+	}
+
+	public Map<Usuario, Opinion> getHistorialDeOpiniones() {
+		return this.historialDeOpiniones;
+	}
+	
+	public LocalDate getFechaUltimaVotacion() {
+		return this.fechaDeUltimaVotacion;
+	}
+	
+	public Calificacion getEspecieDeVinchuca() {
+		return especie;
+	}
+
 
 	public BufferedImage getFotoVinchuca() {
 		return this.fotoVinchuca;
-	}
-
-	public String getEspecieDeVinchuca() {
-		return this.opinion.getCalificacion();
 	}
 
 	public Ubicacion getUbicacion() {
@@ -58,70 +79,43 @@ public class Muestra {
 		return this.usuario.getIdentificacion();
 	}
 
-	public LocalDate getFechaDeCreacion() {
-		return this.fechaDeCreacion;
-	}
-
-	public LinkedHashMap<Usuario, Opinion> getHistorialDeOpiniones() {
-		return this.historialDeOpiniones;
-	}
-
 	public EstadoDeMuestra getEstadoMuestra() {
 		return estadoActual;
 	}
 
-	protected void setEstadoDeMuestra(EstadoDeMuestra estado) {
+	public void setEstadoDeMuestra(EstadoDeMuestra estado) {
 		this.estadoActual = estado;
-	}
-
-	public LocalDate getFechaUltimaVotacion() {
-		return this.fechaDeUltimaVotacion;
 	}
 
 	public List<ZonaDeCobertura> getZonasDeCobertura() {
 		return this.zonasDeCobertura;
 	}
 
-	private void actualizarFechaUltimaVotacion(Opinion opinion) {
-		this.fechaDeUltimaVotacion = opinion.getFechaDeEmision();
-	}
 
 	public void agregarZonaDeCobertura(ZonaDeCobertura zona) {
 		this.zonasDeCobertura.add(zona);
 	}
 
-	public void agregarOpinion(Opinion opinion, Usuario usuario) throws Exception {
-		this.estadoActual.agregarOpinion(this, opinion, usuario);
-	}
-
-	public void agregarLaOpinionDelUsuario(Opinion opinion, Usuario usuario) {
-		this.historialDeOpiniones.put(usuario, opinion);
-		this.actualizarFechaUltimaVotacion(opinion);
-		usuario.agregarOpinionEnviada(opinion);
-	}
-
+	
 	public void verificarMuestra() throws Exception {
 		this.estadoActual.actualizarEstado(this);
 	}
 
+	public String getNivelDeVerificacion() {
+		return this.getEstadoMuestra().getNivelDeVerificacion(this);
+	}
+	
 	public void muestrasCercanas(Muestra muestra, double distancia) {
 		this.ubicacion.muestrasCercanas(muestra, distancia);
 	}
 
-	protected void avisarVerificacionAZonasDeCobertura() {
+	public void avisarVerificacionAZonasDeCobertura() {
 		for (ZonaDeCobertura zona : this.zonasDeCobertura) {
 			zona.muestraVerificada(this);
 		}
 	}
 
-	public List<String> getOpiniones() {
-		ArrayList<String> opiniones = new ArrayList<String>();
-		for (HashMap.Entry<Usuario, Opinion> opinionDeUsuario : historialDeOpiniones.entrySet()) {
-			opiniones.add((opinionDeUsuario.getValue()).getCalificacion());
-		}
-		return opiniones;
-	}
-
+	
 	public boolean contieneAlUsuario(Usuario usuario) {
 		return this.historialDeOpiniones.containsKey(usuario);
 	}
@@ -129,34 +123,44 @@ public class Muestra {
 	public boolean contieneLaOpinion(Opinion opinion) {
 		return this.historialDeOpiniones.containsValue(opinion);
 	}
+	
+	
+	public void agregarLaOpinionDelUsuario(Opinion opinion, Usuario usuario) {
+		this.historialDeOpiniones.put(usuario, opinion);
+		this.actualizarFechaUltimaVotacion(opinion);
+		usuario.agregarOpinionEnviada(opinion);
+	}
+	
+	private void actualizarFechaUltimaVotacion(Opinion opinion) {
+		this.fechaDeUltimaVotacion = opinion.getFechaDeEmision();
+	}
+	//es el objetoSistemaMuestra para mejorar
+	
 
-	public boolean coincidenDosExpertosEnSuOpinion() {
-		final Set<String> opiniones = new HashSet<String>();
+	public List<Calificacion> getCalificacionDeOpiniones() {
+		ArrayList<Calificacion> opiniones = new ArrayList<Calificacion>(); //esto es lo que cambié 
+		for (HashMap.Entry<Usuario, Opinion> opinionDeUsuario : this.getHistorialDeOpiniones().entrySet()) {
+			opiniones.add((opinionDeUsuario.getValue()).getCalificacion());
+		}
+		return opiniones;
+	}
+	
+	public boolean coincidenDosExpertosEnSuCalificacionDeOpinion() {
+		final Set<Calificacion> calificacionDeOpiniones = new HashSet<Calificacion>();
 		boolean retorno = false;
-		for (String opinion : getOpiniones()) {
-			retorno |= !opiniones.add(opinion);
+		for (Calificacion calificacion: getCalificacionDeOpiniones()) {
+			retorno |= !calificacionDeOpiniones.add(calificacion);
 		}
 		return retorno;
 	}
 
-	public String getResultadoActual() {
-		String opinionMasVotada = getOpiniones().stream().reduce(BinaryOperator.maxBy(
-				(o1, o2) -> Collections.frequency(getOpiniones(), o1) - Collections.frequency(getOpiniones(), o2)))
-				.orElse("No Definido");
-		return (opinionMasVotada);
+	public Calificacion getResultadoActual() { //también cambié esto
+		Calificacion opinionMasVotada = getCalificacionDeOpiniones().stream().reduce(BinaryOperator.maxBy((o1, o2) -> Collections.frequency(getCalificacionDeOpiniones(), o1) - 
+				Collections.frequency(getCalificacionDeOpiniones(), o2)))
+				.orElse(Calificacion.NO_DEFINIDO);
+		return (opinionMasVotada); 
 	}
+	
 
-//	private Calificacion resultadoActualVotosPorOpinionEnMuestra() {
-//		Calificacion resultadoActual = this.listEspecieFotografiada.get(0);
-	/*
-	 * faltaria aplicar la logica de obtener la calificacion que mÃ¡s votos tiene y
-	 * retornarla
-	 */
-//		return resultadoActual; // en caso de que sÃ³lo hay un voto para una calificacion, la retorna
-//	}
-
-//	private Boolean hayMasDeUnVotoEnMuestra() {
-//		return this.getListEspecieFotografiada().size() >= 1;
-//	}
 
 }

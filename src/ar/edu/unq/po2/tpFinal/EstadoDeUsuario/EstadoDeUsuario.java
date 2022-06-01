@@ -1,4 +1,7 @@
-package ar.edu.unq.po2.tpFinal;
+package ar.edu.unq.po2.tpFinal.EstadoDeUsuario;
+
+import ar.edu.unq.po2.tpFinal.Muestra;
+import ar.edu.unq.po2.tpFinal.Opinion;
 
 public interface EstadoDeUsuario {
 

@@ -1,9 +1,13 @@
-package ar.edu.unq.po2.tpFinal;
+package ar.edu.unq.po2.tpFinal.Ubicaciones;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import ar.edu.unq.po2.tpFinal.Muestra;
+import ar.edu.unq.po2.tpFinal.Observer.IListenerZonaCobertura;
+import ar.edu.unq.po2.tpFinal.Observer.IOrganizacionObserver;
 
 public class ZonaDeCobertura implements IListenerZonaCobertura {
 
@@ -83,6 +87,12 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 
 	public Integer getRadio() {
 		return radio;
+	}
+
+
+	public void muestraVerificada(Muestra muestra) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
