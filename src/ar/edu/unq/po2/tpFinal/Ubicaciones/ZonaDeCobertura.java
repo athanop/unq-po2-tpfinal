@@ -12,26 +12,51 @@ import ar.edu.unq.po2.tpFinal.Observer.IOrganizacionObserver;
 public class ZonaDeCobertura implements IListenerZonaCobertura {
 
 	private String nombreDeZona;
-	private Integer epicentro;
+	private Ubicacion epicentro;
 	private Integer radio;
 	private List<Muestra> muestras;
 	
-	public List<Muestra> getMuestras() {
-		return this.muestras;
-	}
 	
-	
-	public ZonaDeCobertura(String nombreDeZona, Integer epicentro, Integer radio) {
+	public ZonaDeCobertura(String nombreDeZona, Ubicacion epicentro, Integer radio) {
 		this.nombreDeZona = nombreDeZona;
 		this.epicentro = epicentro;
 		this.radio = radio;
 		this.muestras = new ArrayList<Muestra>();
 	}
 
-	public Boolean seSolapaCon(ZonaDeCobertura zona) {
-		return null;
+	public List<Muestra> getMuestras() {
+		return this.muestras;
 	}
 
+	public String getNombreDeZona() {
+		return nombreDeZona;
+	}
+
+
+	public Ubicacion getEpicentro() {
+		return epicentro;
+	}
+
+	public Integer getRadio() {
+		return radio;
+	}
+
+	
+	public Boolean seSolapaCon(ZonaDeCobertura zona) {
+		Ubicacion primerUbicacion = this.getEpicentro();
+		Ubicacion segundaUbicacion = zona.getEpicentro();
+		
+		return (sumarRadios(this, zona) > primerUbicacion.distanciaHasta(segundaUbicacion));
+	}
+	
+	
+
+	private Integer sumarRadios(ZonaDeCobertura zonaDeCobertura, ZonaDeCobertura otraZona) {
+		return(zonaDeCobertura.getRadio() + otraZona.getRadio());
+	}
+
+	
+	
 	@Override
 	public void agregar(IOrganizacionObserver observer) {
 		// TODO Auto-generated method stub
@@ -75,25 +100,12 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 	}
 
 
-	public String getNombreDeZona() {
-		return nombreDeZona;
-	}
-
-
-	public Integer getEpicentro() {
-		return epicentro;
-	}
-
-
-	public Integer getRadio() {
-		return radio;
-	}
-
 
 	public void muestraVerificada(Muestra muestra) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	
 	
 }
