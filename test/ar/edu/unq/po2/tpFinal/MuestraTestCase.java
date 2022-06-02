@@ -1,9 +1,11 @@
 package ar.edu.unq.po2.tpFinal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.awt.image.BufferedImage;
@@ -102,7 +104,46 @@ class MuestraTestCase {
 	}
 
 	@Test
-	void testDosExpertosCoincidenEnSuOpinionYVerificanLaMuestra() throws Exception {
+	void test_UnaMuestraNoContieneLaOpinionDeUnUsuarioQueNoOpino() {
+		assertFalse(muestra.contieneAlUsuario(usuarioExperto));
+	}
+
+	@Test
+	void testCuandoSeAgregaUnaOpinionALaMuestraSeLeAgregaAsuHistorialDeOpiniones() throws Exception {
+		assertFalse(muestra.contieneLaOpinion(opinionChincheFoliada));
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, nahuelExperto);
+
+		assertTrue(muestra.contieneLaOpinion(opinionChincheFoliada));
+	}
+
+	@Test
+	void testSeAgregaUnaOpinionEnElHistorialDeOpinionesYContiene2DeLasMismas() throws Exception {
+		muestra.agregarLaOpinion(opinionChincheFoliada2, usuarioBasico);
+
+		assertEquals(2, muestra.getHistorialDeOpiniones().size());
+	}
+
+	@Test
+	void testUnaMuestraEsComentadaPorUnUsuarioExperto() throws Exception {
+		muestra.verificarMuestra();
+		muestra.agregarLaOpinion(opinionChincheFoliada, usuarioExperto);
+
+		verify(usuarioExperto).agregarOpinionAMuestraVotadaPorExperto(muestra, opinionChincheFoliada);
+	}
+
+	@Test
+	void testCuandoOpinaUnExpertoLasOpinionesQueValenSonSoloLasDeLosExpertos() throws Exception {
+		assertTrue(muestra.contieneLaOpinion(opinionGuasayana));
+
+		muestra.verificarMuestra();
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, nahuelExperto);
+
+		assertFalse(muestra.contieneLaOpinion(opinionGuasayana));
+		assertTrue(muestra.contieneLaOpinion(opinionChincheFoliada));
+	}
+
+	@Test
+	void testDosExpertosCoincidenEnSuOpinionVerificandoLaMuestra() throws Exception {
 		muestra.verificarMuestra();
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, nahuelExperto);
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, usuarioExperto);
@@ -112,4 +153,61 @@ class MuestraTestCase {
 		assertEquals("verificada", muestra.getNivelDeVerificacion());
 	}
 
+	@Test
+	void testUnaMuestraVerificadaNoSePuedeVolverAVerificar() throws Exception {
+		muestra.verificarMuestra();
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, usuarioExperto);
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada2, nahuelExperto);
+		muestra.verificarMuestra();
+
+		assertThrows(Exception.class, () -> muestra.verificarMuestra());
+	}
+
+	@Test
+	void testCuandoDosUsuariosExpertosNoCoincidenEnLaOpinionSobreUnaMuestraEstaNoSeVerifica() throws Exception {
+		muestra.verificarMuestra();
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, sofiaBasico);
+		muestra.agregarLaOpinionDelUsuario(opinionGuasayana2, usuarioExperto);
+		muestra.verificarMuestra();
+
+		assertFalse(muestra.coincidenDosExpertosEnSuCalificacionDeOpinion());
+		assertEquals("votada", muestra.getNivelDeVerificacion());
+	}
+
+	@Test
+	void testCuandoUnUsuarioExpertoTrataDeVotarUnaMuestraVerificadaSuOpinionNoCuenta() throws Exception {
+		muestra.verificarMuestra();
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, usuarioExperto);
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada2, nahuelExperto);
+		muestra.verificarMuestra();
+
+		assertThrows(Exception.class, () -> muestra.agregarLaOpinion(opinionGuasayana2, usuarioExperto));
+	}
+
+	@Test
+	void testUnaMuestraTieneNivelDeVerificacionVotadaSiNoOpinaNingunExperto() {
+		assertEquals("votada", muestra.getNivelDeVerificacion());
+	}
+
+	@Test
+	void test_unaMuestraTieneUnNivelDeVerificacionVotadaPorExpertoSiOpinoAlMenosUnExperto() throws Exception {
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, usuarioExperto);
+		muestra.verificarMuestra();
+
+		assertEquals("votada", muestra.getNivelDeVerificacion());
+	}
+
+	@Test
+	void testCuandoSeLePideAUnaMuestraSuResultadoActualRetornaLaOpinionConMasVotos() throws Exception {
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, usuarioBasico);
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada2, usuarioExperto);
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada2, nahuelExperto);
+
+		assertEquals(Calificacion.CHINCHE_FOLIADA, muestra.getResultadoActual());
+	}
+	
+	
+	// 1) Faltaria que cuando una Muestra agrega una ZonaDeCobertura se le agregue a su lista de ZonasDeCoberturas.
+	
+	// 2) Faltaria que una Muestra pueda retornar una lista de Muestras cercanas.
 }
