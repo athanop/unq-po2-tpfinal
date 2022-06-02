@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -124,6 +123,9 @@ public class Muestra {
 		return this.historialDeOpiniones.containsValue(opinion);
 	}
 	
+	public void agregarLaOpinion(Opinion opinion, Usuario usuario) throws Exception { 
+		this.estadoActual.agregarOpinion(this, opinion, usuario);
+	}
 	
 	public void agregarLaOpinionDelUsuario(Opinion opinion, Usuario usuario) {
 		this.historialDeOpiniones.put(usuario, opinion);
@@ -138,7 +140,7 @@ public class Muestra {
 	
 
 	public List<Calificacion> getCalificacionDeOpiniones() {
-		ArrayList<Calificacion> opiniones = new ArrayList<Calificacion>(); //esto es lo que cambié 
+		ArrayList<Calificacion> opiniones = new ArrayList<Calificacion>(); //esto es lo que cambiï¿½ 
 		for (HashMap.Entry<Usuario, Opinion> opinionDeUsuario : this.getHistorialDeOpiniones().entrySet()) {
 			opiniones.add((opinionDeUsuario.getValue()).getCalificacion());
 		}
@@ -154,7 +156,7 @@ public class Muestra {
 		return retorno;
 	}
 
-	public Calificacion getResultadoActual() { //también cambié esto
+	public Calificacion getResultadoActual() { //tambiï¿½n cambiï¿½ esto
 		Calificacion opinionMasVotada = getCalificacionDeOpiniones().stream().reduce(BinaryOperator.maxBy((o1, o2) -> Collections.frequency(getCalificacionDeOpiniones(), o1) - 
 				Collections.frequency(getCalificacionDeOpiniones(), o2)))
 				.orElse(Calificacion.NO_DEFINIDO);

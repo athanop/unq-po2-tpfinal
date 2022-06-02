@@ -2,6 +2,7 @@ package ar.edu.unq.po2.tpFinal;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -17,7 +18,6 @@ import ar.edu.unq.po2.tpFinal.Enumerativos.Calificacion;
 import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.Usuario;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
-
 
 class MuestraTestCase {
 
@@ -49,12 +49,12 @@ class MuestraTestCase {
 		fotoVinchuca = mock(BufferedImage.class);
 
 		muestra = new Muestra(fotoVinchuca, ubicacion, sofiaBasico, opinionGuasayana, LocalDate.of(2022, 5, 13));
-		
+
 		when(usuarioBasico.esUsuarioBasico()).thenReturn(true);
 		when(usuarioExperto.esUsuarioExperto()).thenReturn(true);
 		when(nahuelExperto.esUsuarioExperto()).thenReturn(true);
 		when(sofiaBasico.esUsuarioBasico()).thenReturn(true);
-		
+
 		when(opinionGuasayana.getCalificacion()).thenReturn(Calificacion.GUASAYANA);
 		when(opinionGuasayana.getFechaDeEmision()).thenReturn(LocalDate.now());
 		when(opinionGuasayana2.getCalificacion()).thenReturn(Calificacion.GUASAYANA);
@@ -74,20 +74,34 @@ class MuestraTestCase {
 		assertEquals(LocalDate.of(2022, 5, 13), muestra.getFechaDeCreacion());
 		assertEquals(1, muestra.getHistorialDeOpiniones().size());
 	}
-	
+
 	@Test
 	void testMuestraConUnaSolaOpinionObtieneResultadoActualComoGuasayana() {
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, usuarioBasico);
 		assertEquals(Calificacion.GUASAYANA, muestra.getResultadoActual());
 	}
-	
+
 	@Test
 	void testEstadoDeLaMuestraConVerificacionParcialChincheFoliada() {
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, usuarioBasico);
 		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, sofiaBasico);
 		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, usuarioExperto);
-		
+
 		assertEquals(Calificacion.CHINCHE_FOLIADA, muestra.getResultadoActual());
+	}
+
+	@Test
+	void testSeAgregaUnaOpinionALaMuestraYSeActualizaLaUltimaFechaDeVotacion() {
+		assertEquals(LocalDate.of(2022, 5, 13), muestra.getFechaUltimaVotacion());
+		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, sofiaBasico);
+
+		assertEquals(LocalDate.now(), muestra.getFechaUltimaVotacion());
+
+	}
+
+	@Test
+	void test_UnaMuestraNoPuedeVolverASerOpinadaPorSuPropietario() throws Exception {
+		assertThrows(Exception.class, () -> muestra.agregarLaOpinion(opinionGuasayana, sofiaBasico));
 	}
 
 	@Test
@@ -96,10 +110,9 @@ class MuestraTestCase {
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, nahuelExperto);
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, usuarioExperto);
 		muestra.verificarMuestra();
-		
+
 		assertTrue(muestra.coincidenDosExpertosEnSuCalificacionDeOpinion());
 		assertEquals("verificada", muestra.getNivelDeVerificacion());
 	}
-	
 
 }
