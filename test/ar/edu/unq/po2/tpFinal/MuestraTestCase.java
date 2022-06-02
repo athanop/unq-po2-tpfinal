@@ -110,8 +110,8 @@ class MuestraTestCase {
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, nahuelExperto);
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, usuarioExperto);
 		muestra.verificarMuestra();
-
-		assertTrue(muestra.coincidenDosExpertosEnSuCalificacionDeOpinion());
+		
+		assertTrue("true",muestra.coincidenDosExpertosEnSuCalificacionDeOpinion());
 		assertEquals("verificada", muestra.getNivelDeVerificacion());
 	}
 
