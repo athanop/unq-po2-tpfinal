@@ -29,7 +29,6 @@ public class Muestra {
 	private LocalDate fechaDeUltimaVotacion;
 	private Map<Usuario, Opinion> historialDeOpiniones;
 	private List<ZonaDeCobertura> zonasDeCobertura;
-	
 
 	public Muestra(BufferedImage fotoVinchuca, Ubicacion ubicacion, Usuario usuario, Opinion opinion,
 			LocalDate fechaDeCreacion) throws Exception {
@@ -44,7 +43,7 @@ public class Muestra {
 		this.fechaDeCreacion = fechaDeCreacion;
 		this.fechaDeUltimaVotacion = fechaDeCreacion;
 	}
-	
+
 	public LocalDate getFechaDeCreacion() {
 		return this.fechaDeCreacion;
 	}
@@ -52,15 +51,14 @@ public class Muestra {
 	public Map<Usuario, Opinion> getHistorialDeOpiniones() {
 		return this.historialDeOpiniones;
 	}
-	
+
 	public LocalDate getFechaUltimaVotacion() {
 		return this.fechaDeUltimaVotacion;
 	}
-	
+
 	public Calificacion getEspecieDeVinchuca() {
 		return especie;
 	}
-
 
 	public BufferedImage getFotoVinchuca() {
 		return this.fotoVinchuca;
@@ -90,12 +88,10 @@ public class Muestra {
 		return this.zonasDeCobertura;
 	}
 
-
 	public void agregarZonaDeCobertura(ZonaDeCobertura zona) {
 		this.zonasDeCobertura.add(zona);
 	}
 
-	
 	public void verificarMuestra() throws Exception {
 		this.estadoActual.actualizarEstado(this);
 	}
@@ -103,7 +99,7 @@ public class Muestra {
 	public String getNivelDeVerificacion() {
 		return this.getEstadoMuestra().getNivelDeVerificacion(this);
 	}
-	
+
 	public void muestrasCercanas(Muestra muestra, double distancia) {
 		this.ubicacion.muestrasCercanas(muestra, distancia);
 	}
@@ -114,7 +110,6 @@ public class Muestra {
 		}
 	}
 
-	
 	public boolean contieneAlUsuario(Usuario usuario) {
 		return this.historialDeOpiniones.containsKey(usuario);
 	}
@@ -122,47 +117,44 @@ public class Muestra {
 	public boolean contieneLaOpinion(Opinion opinion) {
 		return this.historialDeOpiniones.containsValue(opinion);
 	}
-	
-	public void agregarLaOpinion(Opinion opinion, Usuario usuario) throws Exception { 
+
+	public void agregarLaOpinion(Opinion opinion, Usuario usuario) throws Exception {
 		this.estadoActual.agregarOpinion(this, opinion, usuario);
 	}
-	
+
 	public void agregarLaOpinionDelUsuario(Opinion opinion, Usuario usuario) {
 		this.historialDeOpiniones.put(usuario, opinion);
 		this.actualizarFechaUltimaVotacion(opinion);
 		usuario.agregarOpinionEnviada(opinion);
 	}
-	
+
 	private void actualizarFechaUltimaVotacion(Opinion opinion) {
 		this.fechaDeUltimaVotacion = opinion.getFechaDeEmision();
 	}
-	//es el objetoSistemaMuestra para mejorar
-	
+	// es el objetoSistemaMuestra para mejorar
 
 	public List<Calificacion> getCalificacionDeOpiniones() {
-		ArrayList<Calificacion> opiniones = new ArrayList<Calificacion>(); //esto es lo que cambi� 
+		ArrayList<Calificacion> opiniones = new ArrayList<Calificacion>(); 
 		for (HashMap.Entry<Usuario, Opinion> opinionDeUsuario : this.getHistorialDeOpiniones().entrySet()) {
 			opiniones.add((opinionDeUsuario.getValue()).getCalificacion());
 		}
 		return opiniones;
 	}
-	
+
 	public boolean coincidenDosExpertosEnSuCalificacionDeOpinion() {
 		final Set<Calificacion> calificacionDeOpiniones = new HashSet<Calificacion>();
-		boolean retorno = false;
-		for (Calificacion calificacion: getCalificacionDeOpiniones()) {
-			retorno |= !calificacionDeOpiniones.add(calificacion);
-		}
-		return retorno;
+		getCalificacionDeOpiniones().stream().forEach(calificacion -> {
+			calificacionDeOpiniones.add(calificacion);
+		});
+		return getCalificacionDeOpiniones().size() > calificacionDeOpiniones.size() ? true : false;
 	}
 
-	public Calificacion getResultadoActual() { //tambi�n cambi� esto
-		Calificacion opinionMasVotada = getCalificacionDeOpiniones().stream().reduce(BinaryOperator.maxBy((o1, o2) -> Collections.frequency(getCalificacionDeOpiniones(), o1) - 
-				Collections.frequency(getCalificacionDeOpiniones(), o2)))
+	public Calificacion getResultadoActual() { 
+		Calificacion opinionMasVotada = getCalificacionDeOpiniones().stream()
+				.reduce(BinaryOperator.maxBy((o1, o2) -> Collections.frequency(getCalificacionDeOpiniones(), o1)
+						- Collections.frequency(getCalificacionDeOpiniones(), o2)))
 				.orElse(Calificacion.NO_DEFINIDO);
-		return (opinionMasVotada); 
+		return (opinionMasVotada);
 	}
-	
-
 
 }

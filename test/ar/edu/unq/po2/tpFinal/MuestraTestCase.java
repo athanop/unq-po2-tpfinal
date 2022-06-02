@@ -1,10 +1,8 @@
 package ar.edu.unq.po2.tpFinal;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -100,7 +98,7 @@ class MuestraTestCase {
 	}
 
 	@Test
-	void test_UnaMuestraNoPuedeVolverASerOpinadaPorSuPropietario() throws Exception {
+	void testUnaMuestraNoPuedeVolverASerOpinadaPorSuPropietario() throws Exception {
 		assertThrows(Exception.class, () -> muestra.agregarLaOpinion(opinionGuasayana, sofiaBasico));
 	}
 
@@ -111,7 +109,7 @@ class MuestraTestCase {
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, usuarioExperto);
 		muestra.verificarMuestra();
 		
-		assertTrue("true",muestra.coincidenDosExpertosEnSuCalificacionDeOpinion());
+		assertTrue(muestra.coincidenDosExpertosEnSuCalificacionDeOpinion());
 		assertEquals("verificada", muestra.getNivelDeVerificacion());
 	}
 
