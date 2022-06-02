@@ -25,7 +25,7 @@ class FiltroTestCase {
 	Muestra muestraGuasayana;
 	Muestra muestraSordida;
 	Opinion opinion;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		filtroInsecto = new FiltroTipoInsectoDetectado(Calificacion.INFESTANS);
@@ -37,43 +37,40 @@ class FiltroTestCase {
 		when(muestraInfestans.getEspecieDeVinchuca()).thenReturn(Calificacion.INFESTANS);
 		when(muestraGuasayana.getEspecieDeVinchuca()).thenReturn(Calificacion.GUASAYANA);
 		when(muestraSordida.getEspecieDeVinchuca()).thenReturn(Calificacion.SORDIDA);
-		
-		muestras = Arrays.asList(muestraInfestans,muestraGuasayana,muestraSordida);
-		
-		
+
+		muestras = Arrays.asList(muestraInfestans, muestraGuasayana, muestraSordida);
+
 	}
 
 	@Test
-	void testFiltroDeTipoInsectoConVinchucaInfestans() { //este ya funciona
+	void testFiltroDeTipoInsectoConVinchucaInfestans() {
 		List<Muestra> filtro = filtroInsecto.buscarMuestras(muestras);
 		assertTrue(filtro.contains(muestraInfestans));
 		assertFalse(filtro.contains(muestraGuasayana));
 	}
 
-	
 	@Test
 	void testFiltroDeCreacionDeLaMuestra() {
-		when(muestraInfestans.getFechaDeCreacion()).thenReturn(LocalDate.of(2022, 6, 17)); //tiene que estar
-		when(muestraGuasayana.getFechaDeCreacion()).thenReturn(LocalDate.of(2022, 6, 17)); //tiene que estar
-		when(muestraSordida.getFechaDeCreacion()).thenReturn(LocalDate.of(2022, 6, 12)); //no tiene que estar
+		when(muestraInfestans.getFechaDeCreacion()).thenReturn(LocalDate.of(2022, 6, 17)); // tiene que estar
+		when(muestraGuasayana.getFechaDeCreacion()).thenReturn(LocalDate.of(2022, 6, 17)); // tiene que estar
+		when(muestraSordida.getFechaDeCreacion()).thenReturn(LocalDate.of(2022, 6, 12)); // no tiene que estar
 		List<Muestra> filtro = filtroFecha.buscarMuestras(muestras);
 		assertTrue(filtro.contains(muestraInfestans));
 		assertTrue(filtro.contains(muestraGuasayana));
 		assertFalse(filtro.contains(muestraSordida));
 	}
-	
-	
+
 	@Test
 	void testFiltroDeUltimaVotacionDeLaMuestra() {
-		when(muestraInfestans.getFechaUltimaVotacion()).thenReturn(LocalDate.of(2022, 2, 12)); //no tiene que estar
-		when(muestraGuasayana.getFechaUltimaVotacion()).thenReturn(LocalDate.of(2022, 5, 15)); //tiene que estar
-		when(muestraSordida.getFechaUltimaVotacion()).thenReturn(LocalDate.of(2022, 5, 15)); //tiene que estar
+		when(muestraInfestans.getFechaUltimaVotacion()).thenReturn(LocalDate.of(2022, 2, 12)); // no tiene que estar
+		when(muestraGuasayana.getFechaUltimaVotacion()).thenReturn(LocalDate.of(2022, 5, 15)); // tiene que estar
+		when(muestraSordida.getFechaUltimaVotacion()).thenReturn(LocalDate.of(2022, 5, 15)); // tiene que estar
 		List<Muestra> filtro = filtroVotacion.buscarMuestras(muestras);
 		assertFalse(filtro.contains(muestraInfestans));
 		assertTrue(filtro.contains(muestraGuasayana));
 		assertTrue(filtro.contains(muestraSordida));
 	}
-	
-	//falta filtro de verificacion y filtro compuesto
-	
+
+	// falta filtro de verificacion y filtro compuesto
+
 }

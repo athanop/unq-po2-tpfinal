@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ar.edu.unq.po2.tpFinal.AplicacionWebDeMuestra;
+import ar.edu.unq.po2.tpFinal.AplicacionWeb;
 import ar.edu.unq.po2.tpFinal.Muestra;
 import ar.edu.unq.po2.tpFinal.Opinion;
 
@@ -18,14 +18,14 @@ public class Usuario {
 	private String identificacion;
 	private Set<Muestra> muestras;
 	private List<Opinion> opinionesEnviadas;
-	private AplicacionWebDeMuestra aplicacionWebDeMuestra; // AplicacionWeb? de muestra
+	private AplicacionWeb aplicacionWeb; // AplicacionWeb? de muestra
 	private EstadoDeUsuario estadoDeUsuario;
 
-	public Usuario(String identificacion, AplicacionWebDeMuestra aplicacionWeb) {
+	public Usuario(String identificacion, AplicacionWeb aplicacionWeb) {
 		this.identificacion = identificacion;
 		this.muestras = new HashSet<Muestra>();
 		this.opinionesEnviadas = new ArrayList<Opinion>();
-		this.aplicacionWebDeMuestra = aplicacionWebDeMuestra;
+		this.aplicacionWeb = aplicacionWeb;
 		this.estadoDeUsuario = new EstadoDeUsuarioBasico();
 	}
 
@@ -47,7 +47,7 @@ public class Usuario {
 
 	public void enviarMuestra(Muestra muestra) {
 		this.muestras.add(muestra);
-		this.aplicacionWebDeMuestra.registrarMuestra(muestra);
+		this.aplicacionWeb.registrarMuestra(muestra);
 	}
 
 	protected void setEstadoDeUsuario(EstadoDeUsuario estadoDeUsuario) {

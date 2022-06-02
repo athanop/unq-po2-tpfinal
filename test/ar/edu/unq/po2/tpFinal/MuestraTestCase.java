@@ -15,21 +15,20 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.tpFinal.Enumerativos.Calificacion;
 import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.Usuario;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
-import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
 
 class MuestraTestCase {
 
-	private Muestra muestra;
-	private Usuario usuarioBasico;
-	private Usuario usuarioExperto;
-	private Usuario nahuelExperto;
-	private Usuario sofiaBasico;
-	private Opinion opinionChincheFoliada;
-	private Opinion opinionChincheFoliada2;
-	private Opinion opinionGuasayana;
-	private Opinion opinionGuasayana2;
-	private Ubicacion ubicacion;
-	private BufferedImage fotoVinchuca;
+	Muestra muestra;
+	Usuario usuarioBasico;
+	Usuario usuarioExperto;
+	Usuario nahuelExperto;
+	Usuario sofiaBasico;
+	Opinion opinionChincheFoliada;
+	Opinion opinionChincheFoliada2;
+	Opinion opinionGuasayana;
+	Opinion opinionGuasayana2;
+	Ubicacion ubicacion;
+	BufferedImage fotoVinchuca;
 
 	@BeforeEach
 	void SetUp() throws Exception {
@@ -108,7 +107,7 @@ class MuestraTestCase {
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, nahuelExperto);
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, usuarioExperto);
 		muestra.verificarMuestra();
-		
+
 		assertTrue(muestra.coincidenDosExpertosEnSuCalificacionDeOpinion());
 		assertEquals("verificada", muestra.getNivelDeVerificacion());
 	}

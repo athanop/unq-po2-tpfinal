@@ -25,7 +25,7 @@ public class Opinion {
 
 	public void setCalificacion(Calificacion calificacionDeOpinion) {
 		this.calificacion = calificacionDeOpinion;
-		
+
 	}
 
 }

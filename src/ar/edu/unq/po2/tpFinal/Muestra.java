@@ -20,15 +20,15 @@ import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
 
 public class Muestra {
 
-	private BufferedImage fotoVinchuca;
-	private Calificacion especie;
-	private Usuario usuario;
-	private Ubicacion ubicacion;
-	private EstadoDeMuestra estadoActual;
-	private LocalDate fechaDeCreacion;
-	private LocalDate fechaDeUltimaVotacion;
-	private Map<Usuario, Opinion> historialDeOpiniones;
-	private List<ZonaDeCobertura> zonasDeCobertura;
+	BufferedImage fotoVinchuca;
+	Calificacion especie;
+	Usuario usuario;
+	Ubicacion ubicacion;
+	EstadoDeMuestra estadoActual;
+	LocalDate fechaDeCreacion;
+	LocalDate fechaDeUltimaVotacion;
+	Map<Usuario, Opinion> historialDeOpiniones;
+	List<ZonaDeCobertura> zonasDeCobertura;
 
 	public Muestra(BufferedImage fotoVinchuca, Ubicacion ubicacion, Usuario usuario, Opinion opinion,
 			LocalDate fechaDeCreacion) throws Exception {
@@ -134,7 +134,7 @@ public class Muestra {
 	// es el objetoSistemaMuestra para mejorar
 
 	public List<Calificacion> getCalificacionDeOpiniones() {
-		ArrayList<Calificacion> opiniones = new ArrayList<Calificacion>(); 
+		ArrayList<Calificacion> opiniones = new ArrayList<Calificacion>();
 		for (HashMap.Entry<Usuario, Opinion> opinionDeUsuario : this.getHistorialDeOpiniones().entrySet()) {
 			opiniones.add((opinionDeUsuario.getValue()).getCalificacion());
 		}
@@ -149,12 +149,12 @@ public class Muestra {
 		return getCalificacionDeOpiniones().size() > calificacionDeOpiniones.size() ? true : false;
 	}
 
-	public Calificacion getResultadoActual() { 
+	public Calificacion getResultadoActual() {
 		Calificacion opinionMasVotada = getCalificacionDeOpiniones().stream()
 				.reduce(BinaryOperator.maxBy((o1, o2) -> Collections.frequency(getCalificacionDeOpiniones(), o1)
 						- Collections.frequency(getCalificacionDeOpiniones(), o2)))
 				.orElse(Calificacion.NO_DEFINIDO);
-		return (opinionMasVotada);
+		return (opinionMasVotada);// para sofi, hacer for
 	}
 
 }
