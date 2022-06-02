@@ -23,7 +23,7 @@ class UbicacionTestCase {
 	@BeforeEach
 	void setUp() throws Exception {
 
-		zona = new ZonaDeCobertura("Wilde", 1, 30);
+		zona = new ZonaDeCobertura("Wilde", ubicacion1, 30);
 
 		muestra = mock(Muestra.class);
 		otraMuestra = mock(Muestra.class);

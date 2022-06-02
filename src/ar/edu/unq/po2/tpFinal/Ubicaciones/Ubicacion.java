@@ -21,6 +21,10 @@ public class Ubicacion {
 		return longitud;
 	}
 
+	public ZonaDeCobertura getZona() {
+		return zona;
+	}
+	
 	public Ubicacion() {
 		this.latitud = 0d;
 		this.longitud = 0d;
@@ -60,15 +64,9 @@ public class Ubicacion {
 		return resultado;
 	}
 
-	public ZonaDeCobertura getZona() {
-		return zona;
-	}
-
 	public Boolean ubicacionEstaAMenosDe(Double kilometros, Ubicacion ubicacion) {
 		return this.distanciaHasta(ubicacion) < kilometros;
 	}
-
-
 	
 	public Set<Muestra> muestrasCercanas(Muestra muestra, double distancia) {
 		Set<Muestra> muestrascercanas = new HashSet<Muestra>();
