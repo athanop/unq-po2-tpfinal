@@ -24,5 +24,4 @@ public class FiltroUltimaVotacion implements IFiltroBusquedaMuestra {
 		}
 		return resultadoBusqueda;
 	}
-
 }

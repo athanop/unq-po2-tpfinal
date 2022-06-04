@@ -17,12 +17,11 @@ public class FiltroTipoInsectoDetectado implements IFiltroBusquedaMuestra {
 	@Override
 	public List<Muestra> buscarMuestras(List<Muestra> muestras) {
 		List<Muestra> resultadoBusqueda = new ArrayList<Muestra>();
-		for (Muestra m:muestras) {
-			if(this.tipoInsecto.equals(m.getEspecieDeVinchuca())) {
+		for (Muestra m : muestras) {
+			if (this.tipoInsecto.equals(m.getEspecieDeVinchuca())) {
 				resultadoBusqueda.add(m);
 			}
 		}
 		return resultadoBusqueda;
 	}
-
 }
