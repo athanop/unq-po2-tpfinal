@@ -66,9 +66,6 @@ public class Muestra {
 		return ubicacion;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
 
 	public String getIdentificacionPropietarioDeLaMuestra() {
 		return this.usuario.getIdentificacion();

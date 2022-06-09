@@ -23,6 +23,7 @@ public class Usuario {
 	private AplicacionWeb aplicacionWeb; // AplicacionWeb de muestra
 	private EstadoDeUsuario estadoDeUsuario;
 
+
 	public Usuario(String identificacion, AplicacionWeb aplicacionWeb) {
 		this.identificacion = identificacion;
 		this.muestras = new HashSet<Muestra>();
@@ -31,6 +32,10 @@ public class Usuario {
 		this.estadoDeUsuario = new EstadoDeUsuarioBasico();
 	}
 
+	public EstadoDeUsuario getEstadoDeUsuario() {
+		return estadoDeUsuario;
+	}
+	
 	public String getIdentificacion() {
 		return this.identificacion;
 	}
@@ -56,7 +61,7 @@ public class Usuario {
 		this.aplicacionWeb.registrarMuestra(muestra);
 	}
 
-	protected void setEstadoDeUsuario(EstadoDeUsuario estadoDeUsuario) {
+	public void setEstadoDeUsuario(EstadoDeUsuario estadoDeUsuario) {
 		this.estadoDeUsuario = estadoDeUsuario;
 	}
 
