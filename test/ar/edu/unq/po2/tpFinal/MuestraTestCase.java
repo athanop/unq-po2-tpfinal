@@ -34,7 +34,7 @@ class MuestraTestCase {
 	Ubicacion ubicacionEpicentro;
 	BufferedImage fotoVinchuca;
 	ZonaDeCobertura zona1;
-	
+
 	@BeforeEach
 	void SetUp() throws Exception {
 
@@ -49,8 +49,7 @@ class MuestraTestCase {
 		zona1 = mock(ZonaDeCobertura.class);
 		ubicacion = mock(Ubicacion.class);
 		fotoVinchuca = mock(BufferedImage.class);
-		
-		
+
 		when(ubicacion.getZona()).thenReturn(zona1);
 
 		muestra = new Muestra(fotoVinchuca, ubicacion, sofiaBasico, opinionGuasayana, LocalDate.of(2022, 5, 13));
@@ -189,7 +188,7 @@ class MuestraTestCase {
 
 		assertThrows(Exception.class, () -> muestra.agregarLaOpinion(opinionGuasayana2, usuarioExperto));
 	}
-	
+
 	@Test
 	void testCuandoUnUsuarioExpertoTrataDeVotarUnaMuestraQueYaVotoNoPuedeVolverAOpinar() throws Exception {
 		muestra.verificarMuestra();
@@ -221,11 +220,5 @@ class MuestraTestCase {
 
 		assertEquals(Calificacion.CHINCHE_FOLIADA, muestra.getResultadoActual());
 	}
-	
-	
-	
 
-	// 1) Faltaria que cuando una Muestra agrega una ZonaDeCobertura se le agregue a su lista de ZonasDeCoberturas.
-	
-	
 }
