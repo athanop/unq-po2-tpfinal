@@ -16,7 +16,7 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 	private Integer radio;
 	private List<Muestra> muestras;
 	private List<IOrganizacionObserver> observers;
-	
+
 	public ZonaDeCobertura(String nombreDeZona, Ubicacion epicentro, Integer radio) {
 		this.nombreDeZona = nombreDeZona;
 		this.epicentro = epicentro;
@@ -41,18 +41,17 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 		return radio;
 	}
 
-	
 	public Boolean seSolapaCon(ZonaDeCobertura zona) {
 		Ubicacion primerUbicacion = this.getEpicentro();
 		Ubicacion segundaUbicacion = zona.getEpicentro();
-		
+
 		return (sumarRadios(this, zona) > primerUbicacion.distanciaHasta(segundaUbicacion));
 	}
-	
+
 	private Integer sumarRadios(ZonaDeCobertura zonaDeCobertura, ZonaDeCobertura otraZona) {
-		return(zonaDeCobertura.getRadio() + otraZona.getRadio());
+		return (zonaDeCobertura.getRadio() + otraZona.getRadio());
 	}
-	
+
 	@Override
 	public void agregar(IOrganizacionObserver observer) {
 		this.observers.add(observer);
@@ -65,30 +64,32 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 
 	@Override
 	public void notificarNuevaMuestra(Muestra muestra) {
-		for(IOrganizacionObserver observer: this.getObservers()) {
+		for (IOrganizacionObserver observer : this.getObservers()) {
 			observer.nuevaMuestra(this, muestra);
 		}
 	}
-
 
 	public void notificarNuevaVerificacion(Muestra muestra) {
 		for (IOrganizacionObserver observer : this.getObservers()) {
 			observer.nuevaVerificacion(this, muestra);
 		}
 	}
-	
-	//agrego este metodo para probar las muestras que voy agregando al método muestras cercanas
+
+	// agrego este metodo para probar las muestras que voy agregando al mï¿½todo
+	// muestras cercanas
 	public void agregarMuestra(Muestra muestra) {
-		this.getMuestras().add(muestra);
+		if (this.perteneceAZonaDeCobertura(muestra)) {
+			muestras.add(muestra);
+			this.notificarNuevaMuestra(muestra);
+		}
 	}
 
 	public void muestraVerificada(Muestra muestra) {
-		// TODO Auto-generated method stub
-		
+		this.notificarNuevaVerificacion(muestra);
 	}
 
+	private boolean perteneceAZonaDeCobertura(Muestra muestra) {
 
-	
-	
-	
+		return epicentro.distanciaHasta(muestra.getUbicacion()) <= radio;
+	}
 }

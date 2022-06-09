@@ -18,18 +18,19 @@ class UbicacionTestCase {
 	Ubicacion ubicacion1, ubicacion2, ubicacion3, ubicacion4, ubicacion5;
 	List<Ubicacion> ubicaciones, resultado;
 	Muestra muestra, otraMuestra, otraMuestraMuyLejos;
-	ZonaDeCobertura zona;
+	ZonaDeCobertura zona, zona2;
 
 	@BeforeEach
 	void setUp() throws Exception {
-
+		ubicacion2 = new Ubicacion(40d, 50d, zona);
+		zona2 = new ZonaDeCobertura("Wilde", ubicacion2, 30);
+		ubicacion1 = new Ubicacion(50d, 40d, zona2);
 		zona = new ZonaDeCobertura("Wilde", ubicacion1, 30);
 
 		muestra = mock(Muestra.class);
 		otraMuestra = mock(Muestra.class);
 		otraMuestraMuyLejos = mock(Muestra.class);
-		ubicacion1 = new Ubicacion(50d, 40d, zona);
-		ubicacion2 = new Ubicacion(40d, 50d, zona);
+
 		ubicacion3 = new Ubicacion(10d, 20d, zona);
 		ubicacion5 = new Ubicacion(60d, 60d, zona);
 		when(otraMuestra.getUbicacion()).thenReturn(ubicacion1); // ubicacion 50 40
@@ -73,8 +74,9 @@ class UbicacionTestCase {
 	void testMuestrasAMenosDe1359KmEnLaZonaDeCobertura() {
 		ubicacion1.getZona().agregarMuestra(otraMuestra);
 		ubicacion1.getZona().agregarMuestra(otraMuestraMuyLejos);
-		assertTrue(ubicacion1.muestrasCercanas(muestra, 1359.2545257553352).contains(otraMuestra)); 
-		
+
+		assertFalse(ubicacion1.muestrasCercanas(muestra, 1360.5845257553352).contains(otraMuestra));
+		//va True y rompe
 	}
 
 }

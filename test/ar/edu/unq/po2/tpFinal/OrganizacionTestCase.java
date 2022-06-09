@@ -15,14 +15,14 @@ import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
 
 class OrganizacionTestCase {
-	
+
 	Organizacion organizacion;
 	ZonaDeCobertura zona;
 	Ubicacion ubicacion;
 	IFuncionalidadExterna nuevaMuestra;
 	IFuncionalidadExterna verificacionMuestra;
 	Muestra muestra;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		muestra = mock(Muestra.class);
@@ -41,24 +41,39 @@ class OrganizacionTestCase {
 		assertEquals(organizacion.getNuevaMuestra(), nuevaMuestra);
 		assertEquals(organizacion.getVerificacionMuestra(), verificacionMuestra);
 	}
-	
+
 	@Test
 	void testOrganizacionNotificadaConNuevaMuestra() {
-	
+
 		organizacion.nuevaMuestra(zona, muestra);
-		
+
 		verify(nuevaMuestra, times(1)).nuevoEvento(organizacion, zona, muestra);
 	}
-	
+
 	@Test
 	void testOrganizacionNotificadaConNuevaVerificacion() {
-		
+
 		organizacion.nuevaVerificacion(zona, muestra);
-		
+
 		verify(verificacionMuestra, times(1)).nuevoEvento(organizacion, zona, muestra);
 	}
-	
-	
-	
+
+	@Test
+	void testUnaOrganizacionSeRegistraEnUnaZonaDeCobertura() {
+		ZonaDeCobertura zonaDeCobertura = mock(ZonaDeCobertura.class);
+
+		organizacion.registrarseAZonaDeCobertura(zonaDeCobertura);
+
+		verify(zonaDeCobertura).agregar(organizacion);
+	}
+
+	@Test
+	void testUnaOrganizacionDejaDeSerParteDeUnaZonaDeCobertura() {
+		ZonaDeCobertura zonaDeCobertura = mock(ZonaDeCobertura.class);
+
+		organizacion.dejarZonaDeCobertura(zonaDeCobertura);
+
+		verify(zonaDeCobertura).eliminar(organizacion);
+	}
 
 }

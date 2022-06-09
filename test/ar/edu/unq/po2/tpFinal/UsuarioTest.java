@@ -30,11 +30,10 @@ class UsuarioTest {
 
 	Usuario usuarioBasico; // sut
 	Usuario usuarioExperto; // sut
-	Usuario usuarioExpertoJuli; 
+	Usuario usuarioExpertoJuli;
 	Usuario usuarioEspecialista; // sut
 	EstadoDeUsuario estadoExperto;
-	
-	
+
 	AplicacionWeb app;// doc
 	Muestra muestra, muestra2, muestra3, muestra4, muestra5, muestra6, muestra7, muestra8, muestra9, muestra10;
 	Ubicacion ubicacion1;
@@ -42,143 +41,137 @@ class UsuarioTest {
 	Opinion opinion;
 	List<Opinion> opiniones;
 	Set<Muestra> muestrasEnviadas;
-	
-	@BeforeEach 
-	void setUp() throws Exception { 
-	estadoExperto = mock(EstadoDeUsuario.class);
-	when(estadoExperto.esUsuarioExperto()).thenReturn(true);
-	app = mock(AplicacionWeb.class);
-	usuarioBasico = new Usuario("IdNahuel", app);
-	usuarioExperto = new Usuario("IdSofi", app);
-	usuarioExpertoJuli = new Usuario("IdCX", app);
-	usuarioEspecialista = new Usuario("IdJuli", app);
-	opinion = mock(Opinion.class);
-	when(opinion.getCalificacion()).thenReturn(Calificacion.GUASAYANA);
-	when(opinion.getFechaDeEmision()).thenReturn(LocalDate.now());
-	
-	//PARA TESTEAR LAS MUESTRAS ENVIADAS EN LOS ULTIMOS 30 DIAS
-	muestra = mock(Muestra.class);
-	muestra2 = mock(Muestra.class);
-	muestra3 = mock(Muestra.class);
-	muestra4 = mock(Muestra.class);
-	muestra5 = mock(Muestra.class);
-	muestra6 = mock(Muestra.class);
-	muestra7 = mock(Muestra.class);
-	muestra8 = mock(Muestra.class);
-	muestra9 = mock(Muestra.class);
-	muestra10 = mock(Muestra.class);
-	
-	when(muestra.getFechaDeCreacion()).thenReturn(LocalDate.now());
-	when(muestra2.getFechaDeCreacion()).thenReturn(LocalDate.now());
-	when(muestra3.getFechaDeCreacion()).thenReturn(LocalDate.now());
-	when(muestra4.getFechaDeCreacion()).thenReturn(LocalDate.now());
-	when(muestra5.getFechaDeCreacion()).thenReturn(LocalDate.now());
-	when(muestra6.getFechaDeCreacion()).thenReturn(LocalDate.now());
-	when(muestra7.getFechaDeCreacion()).thenReturn(LocalDate.now());
-	when(muestra8.getFechaDeCreacion()).thenReturn(LocalDate.now());
-	when(muestra9.getFechaDeCreacion()).thenReturn(LocalDate.now());
-	when(muestra10.getFechaDeCreacion()).thenReturn(LocalDate.now());
-	
-	
-	muestrasEnviadas = new HashSet<Muestra>();
-	muestrasEnviadas.add(muestra);
-	muestrasEnviadas.add(muestra2);
-	muestrasEnviadas.add(muestra3);
-	muestrasEnviadas.add(muestra4);
-	muestrasEnviadas.add(muestra5);
-	muestrasEnviadas.add(muestra6);
-	muestrasEnviadas.add(muestra7);
-	muestrasEnviadas.add(muestra8);
-	muestrasEnviadas.add(muestra9);
-	muestrasEnviadas.add(muestra10);
-	
-	
-	
-	//PARA TESTEAR LAS OPINIONES ENVIADAS EN LOS ULTIMOS 30 DIAS
-	
-	opiniones = Arrays.asList(opinion,opinion,opinion,opinion,opinion,opinion,opinion,opinion,
-			  opinion,opinion,opinion,opinion,opinion,opinion,opinion,opinion,opinion,opinion,opinion,opinion,opinion);
-		
+
+	@BeforeEach
+	void setUp() throws Exception {
+		estadoExperto = mock(EstadoDeUsuario.class);
+		when(estadoExperto.esUsuarioExperto()).thenReturn(true);
+		app = mock(AplicacionWeb.class);
+		usuarioBasico = new Usuario("IdNahuel", app);
+		usuarioExperto = new Usuario("IdSofi", app);
+		usuarioExpertoJuli = new Usuario("IdCX", app);
+		usuarioEspecialista = new Usuario("IdJuli", app);
+		opinion = mock(Opinion.class);
+		when(opinion.getCalificacion()).thenReturn(Calificacion.GUASAYANA);
+		when(opinion.getFechaDeEmision()).thenReturn(LocalDate.now());
+
+		// PARA TESTEAR LAS MUESTRAS ENVIADAS EN LOS ULTIMOS 30 DIAS
+		muestra = mock(Muestra.class);
+		muestra2 = mock(Muestra.class);
+		muestra3 = mock(Muestra.class);
+		muestra4 = mock(Muestra.class);
+		muestra5 = mock(Muestra.class);
+		muestra6 = mock(Muestra.class);
+		muestra7 = mock(Muestra.class);
+		muestra8 = mock(Muestra.class);
+		muestra9 = mock(Muestra.class);
+		muestra10 = mock(Muestra.class);
+
+		when(muestra.getFechaDeCreacion()).thenReturn(LocalDate.now());
+		when(muestra2.getFechaDeCreacion()).thenReturn(LocalDate.now());
+		when(muestra3.getFechaDeCreacion()).thenReturn(LocalDate.now());
+		when(muestra4.getFechaDeCreacion()).thenReturn(LocalDate.now());
+		when(muestra5.getFechaDeCreacion()).thenReturn(LocalDate.now());
+		when(muestra6.getFechaDeCreacion()).thenReturn(LocalDate.now());
+		when(muestra7.getFechaDeCreacion()).thenReturn(LocalDate.now());
+		when(muestra8.getFechaDeCreacion()).thenReturn(LocalDate.now());
+		when(muestra9.getFechaDeCreacion()).thenReturn(LocalDate.now());
+		when(muestra10.getFechaDeCreacion()).thenReturn(LocalDate.now());
+
+		muestrasEnviadas = new HashSet<Muestra>();
+		muestrasEnviadas.add(muestra);
+		muestrasEnviadas.add(muestra2);
+		muestrasEnviadas.add(muestra3);
+		muestrasEnviadas.add(muestra4);
+		muestrasEnviadas.add(muestra5);
+		muestrasEnviadas.add(muestra6);
+		muestrasEnviadas.add(muestra7);
+		muestrasEnviadas.add(muestra8);
+		muestrasEnviadas.add(muestra9);
+		muestrasEnviadas.add(muestra10);
+
+		// PARA TESTEAR LAS OPINIONES ENVIADAS EN LOS ULTIMOS 30 DIAS
+
+		opiniones = Arrays.asList(opinion, opinion, opinion, opinion, opinion, opinion, opinion, opinion, opinion,
+				opinion, opinion, opinion, opinion, opinion, opinion, opinion, opinion, opinion, opinion, opinion,
+				opinion);
+
 	}
-	 
-	//ACÁ EMPIEZAN LOS TEST DEL USUARIO BASICO
+
+	// ACï¿½ EMPIEZAN LOS TEST DEL USUARIO BASICO
 	@Test
 	void testEsUnUsuarioBasico() {
 		assertTrue(usuarioBasico.esUsuarioBasico());
 	}
-	
+
 	@Test
 	void testNoEsUnUsuarioExperto() {
 		assertFalse(usuarioBasico.esUsuarioExperto());
 	}
-	
+
 	@Test
-	void testlasOpinionesEstaDentroDe30DiasDeLaFecha() { 
+	void testlasOpinionesEstaDentroDe30DiasDeLaFecha() {
 		usuarioBasico.setOpinionesEnviadas(opiniones);
 		assertEquals(usuarioBasico.cantidadDeOpinionesEnLosUltimos30Dias(), 21);
 	}
-	
-	
+
 	@Test
-	void testLasMuestrasEstanDentroDe30DiasDeLaFecha() { 
+	void testLasMuestrasEstanDentroDe30DiasDeLaFecha() {
 		usuarioBasico.setMuestras(muestrasEnviadas);
 		assertEquals(usuarioBasico.cantidadDeEnviosEnLosUltimos30Dias(), 10);
 	}
-	
+
 	@Test
-	void testUnUsuarioActualizaSuCategoriaAExperto() { 
+	void testUnUsuarioActualizaSuCategoriaAExperto() {
 		usuarioBasico.setMuestras(muestrasEnviadas);
 		usuarioBasico.setOpinionesEnviadas(opiniones);
 		usuarioBasico.actualizarCategoria();
 		assertTrue(usuarioBasico.esUsuarioExperto());
 	}
-	
+
 	@Test
 	void testUnUsuarioAgregarOpinionAMuestraVotadaPorExpertoYNoLoDeja() throws Exception {
 		muestra.verificarMuestra();
 		usuarioExperto.agregarOpinionEnviada(opinion);
 		muestra.verificarMuestra();
-	
+
 		assertThrows(Exception.class, () -> usuarioBasico.agregarOpinionAMuestraVotadaPorExperto(muestra, opinion));
-		
+
 	}
-	
-	
-	
-	//ACÁ EMPIEZAN LOS TEST DEL USUARIO EXPERTO
+
+	// ACï¿½ EMPIEZAN LOS TEST DEL USUARIO EXPERTO
 	@Test
 	void testEsUnUsuarioExperto() {
 		usuarioExperto.setEstadoDeUsuario(estadoExperto);
 		assertTrue(usuarioExperto.esUsuarioExperto());
 	}
-	
+
 	@Test
 	void testNoEsUnUsuarioBasico() {
 		usuarioExperto.setEstadoDeUsuario(estadoExperto);
 		assertFalse(usuarioExperto.esUsuarioBasico());
 	}
-	
+
 	@Test
-	void testLasOpinionesNoEstanDentroDe30DiasDeLaFecha() { 
+	void testLasOpinionesNoEstanDentroDe30DiasDeLaFecha() {
 		when(opinion.getFechaDeEmision()).thenReturn(LocalDate.of(2020, 5, 5));
 		opiniones = Arrays.asList(opinion);
 		usuarioExperto.setOpinionesEnviadas(opiniones);
 		assertEquals(usuarioExperto.cantidadDeOpinionesEnLosUltimos30Dias(), 0);
 	}
-	
-	
+
 	@Test
-	void testLasMuestrasNoEstanDentroDe30DiasDeLaFecha() { 
+	void testLasMuestrasNoEstanDentroDe30DiasDeLaFecha() {
 		when(muestra.getFechaDeCreacion()).thenReturn(LocalDate.of(2020, 5, 5));
 		muestrasEnviadas = new HashSet<Muestra>();
 		muestrasEnviadas.add(muestra);
-		
+
 		usuarioExperto.setMuestras(muestrasEnviadas);
 		assertEquals(usuarioExperto.cantidadDeEnviosEnLosUltimos30Dias(), 0);
 	}
-	
+
 	@Test
-	void testUnUsuarioExpertoActualizaSuCategoriaACategoriaBasico() { 
+	void testUnUsuarioExpertoActualizaSuCategoriaACategoriaBasico() {
 		when(opinion.getFechaDeEmision()).thenReturn(LocalDate.of(2020, 5, 5));
 		opiniones = Arrays.asList(opinion);
 		when(muestra.getFechaDeCreacion()).thenReturn(LocalDate.of(2020, 5, 5));
@@ -186,16 +179,10 @@ class UsuarioTest {
 		muestrasEnviadas.add(muestra);
 		usuarioExperto.setOpinionesEnviadas(opiniones);
 		usuarioExperto.setMuestras(muestrasEnviadas);
-	
+
 		usuarioExperto.actualizarCategoria();
 		assertFalse(usuarioExperto.esUsuarioExperto());
 		assertTrue(usuarioExperto.esUsuarioBasico());
 	}
-	
-	
-	
-	
-	
-	
-}
 
+}
