@@ -56,7 +56,6 @@ class ZonaDeCoberturaTestCase {
 		zonaDeCobertura.agregar(suscriptor2);
 		
 		zonaDeCobertura.agregarMuestra(muestra);
-		zonaDeCobertura.notificarNuevaMuestra(muestra);
 		
 		verify(suscriptor1, times(1)).nuevaMuestra(zonaDeCobertura, muestra);
 		verify(suscriptor2, times(1)).nuevaMuestra(zonaDeCobertura, muestra);

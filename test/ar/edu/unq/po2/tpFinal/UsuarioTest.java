@@ -1,7 +1,6 @@
 package ar.edu.unq.po2.tpFinal;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -10,7 +9,6 @@ import static org.mockito.Mockito.when;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -18,8 +16,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import ar.edu.unq.po2.tpFinal.Enumerativos.Calificacion;
 import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.EstadoDeUsuario;
@@ -130,16 +126,21 @@ class UsuarioTest {
 	}
 
 	@Test
+	void testUnUsuarioEmiteUnaOpinionYLeEnviaElMensajeDeAgregarOpinionALaMuestra() throws Exception {
+		usuarioBasico.opinarSobreMuestra(muestra, opinion);
+		verify(muestra).agregarLaOpinionDelUsuario(opinion, usuarioBasico);
+	}
+
+	// AC� EMPIEZAN LOS TEST DEL USUARIO EXPERTO
+	@Test
 	void testUnUsuarioAgregarOpinionAMuestraVotadaPorExpertoYNoLoDeja() throws Exception {
 		muestra.verificarMuestra();
 		usuarioExperto.agregarOpinionEnviada(opinion);
 		muestra.verificarMuestra();
 
 		assertThrows(Exception.class, () -> usuarioBasico.agregarOpinionAMuestraVotadaPorExperto(muestra, opinion));
-
 	}
 
-	// AC� EMPIEZAN LOS TEST DEL USUARIO EXPERTO
 	@Test
 	void testEsUnUsuarioExperto() {
 		usuarioExperto.setEstadoDeUsuario(estadoExperto);
@@ -170,19 +171,13 @@ class UsuarioTest {
 		assertEquals(usuarioExperto.cantidadDeEnviosEnLosUltimos30Dias(), 0);
 	}
 
-	@Test
-	void testUnUsuarioExpertoActualizaSuCategoriaACategoriaBasico() {
-		when(opinion.getFechaDeEmision()).thenReturn(LocalDate.of(2020, 5, 5));
-		opiniones = Arrays.asList(opinion);
-		when(muestra.getFechaDeCreacion()).thenReturn(LocalDate.of(2020, 5, 5));
-		muestrasEnviadas = new HashSet<Muestra>();
-		muestrasEnviadas.add(muestra);
-		usuarioExperto.setOpinionesEnviadas(opiniones);
-		usuarioExperto.setMuestras(muestrasEnviadas);
+	//@Test
+	//void testUnUsuarioQueTieneEstadoExpertoAlActualizarCategoriaBajoLasMismasCondicionesSigueSiendoExperto() {
+	//	usuarioExperto.setEstadoDeUsuario(estadoExperto);
+	//	usuarioExperto.actualizarCategoria();
+	//	usuarioExperto.actualizarCategoria();
 
-		usuarioExperto.actualizarCategoria();
-		assertFalse(usuarioExperto.esUsuarioExperto());
-		assertTrue(usuarioExperto.esUsuarioBasico());
-	}
+	//	assertEquals((usuarioExperto.actualizarCategoria()), usuarioExperto.getEstadoDeUsuario());
+	//}
 
 }
