@@ -75,8 +75,6 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 		}
 	}
 
-	// agrego este metodo para probar las muestras que voy agregando al m�todo
-	// muestras cercanas
 	public void agregarMuestra(Muestra muestra) {
 		if (this.perteneceAZonaDeCobertura(muestra)) {
 			muestras.add(muestra);
@@ -91,5 +89,20 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 	private boolean perteneceAZonaDeCobertura(Muestra muestra) {
 
 		return epicentro.distanciaHasta(muestra.getUbicacion()) <= radio;
+	}
+
+	public Set<ZonaDeCobertura> zonasQueSolapan(Set<ZonaDeCobertura> zonas) {
+		Set<ZonaDeCobertura> zonasQueSolapan = new HashSet<ZonaDeCobertura>();
+
+		for (ZonaDeCobertura zona : zonas) {
+			this.agregarSiSeSolapa(zona, zonasQueSolapan);
+		}
+		return zonasQueSolapan;
+	}
+
+	private void agregarSiSeSolapa(ZonaDeCobertura zona, Set<ZonaDeCobertura> zonasQueSolapan) {
+		if (seSolapaCon(zona)) {
+			zonasQueSolapan.add(zona);
+		}
 	}
 }

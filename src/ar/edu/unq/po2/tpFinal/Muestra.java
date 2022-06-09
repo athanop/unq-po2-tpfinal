@@ -16,7 +16,6 @@ import ar.edu.unq.po2.tpFinal.EstadoDeMuestra.EstadoDeMuestra;
 import ar.edu.unq.po2.tpFinal.EstadoDeMuestra.EstadoDeMuestraVotada;
 import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.Usuario;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
-import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
 
 public class Muestra {
 
@@ -66,7 +65,6 @@ public class Muestra {
 		return ubicacion;
 	}
 
-
 	public String getIdentificacionPropietarioDeLaMuestra() {
 		return this.usuario.getIdentificacion();
 	}
@@ -79,7 +77,6 @@ public class Muestra {
 		this.estadoActual = estado;
 	}
 
-	
 	public void verificarMuestra() throws Exception {
 		this.estadoActual.actualizarEstado(this);
 	}
@@ -89,7 +86,7 @@ public class Muestra {
 	}
 
 	public void avisarVerificacionAZonaDeCobertura() {
-		this.getUbicacion().getZona().muestraVerificada(this);		
+		this.getUbicacion().getZona().muestraVerificada(this);
 	}
 
 	public boolean contieneAlUsuario(Usuario usuario) {
@@ -135,7 +132,12 @@ public class Muestra {
 				.reduce(BinaryOperator.maxBy((o1, o2) -> Collections.frequency(getCalificacionDeOpiniones(), o1)
 						- Collections.frequency(getCalificacionDeOpiniones(), o2)))
 				.orElse(Calificacion.NO_DEFINIDO);
-		return (opinionMasVotada);// para sofi, hacer for
+		return (opinionMasVotada);
+	}
+
+	public List<Muestra> muestrasCercanas(Muestra muestra, Double kilometros) {
+		return this.ubicacion.muestrasCercanas(muestra, kilometros);
+
 	}
 
 }

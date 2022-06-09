@@ -22,7 +22,7 @@ import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.EstadoDeUsuario;
 import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.Usuario;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
 
-class UsuarioTest {
+class UsuarioTestCase {
 
 	Usuario usuarioBasico; // sut
 	Usuario usuarioExperto; // sut

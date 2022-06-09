@@ -1,9 +1,7 @@
 package ar.edu.unq.po2.tpFinal.Ubicaciones;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import ar.edu.unq.po2.tpFinal.Muestra;
 
@@ -11,7 +9,7 @@ public class Ubicacion {
 
 	private Double latitud;
 	private Double longitud;
-	private ZonaDeCobertura zona; 
+	private ZonaDeCobertura zona;
 
 	public Double getLatitud() {
 		return latitud;
@@ -24,7 +22,7 @@ public class Ubicacion {
 	public ZonaDeCobertura getZona() {
 		return zona;
 	}
-	
+
 	public Ubicacion() {
 		this.latitud = 0d;
 		this.longitud = 0d;
@@ -67,15 +65,15 @@ public class Ubicacion {
 	public Boolean ubicacionEstaAMenosDe(Double kilometros, Ubicacion ubicacion) {
 		return this.distanciaHasta(ubicacion) < kilometros;
 	}
-	
-	public Set<Muestra> muestrasCercanas(Muestra muestra, double distancia) {
-		Set<Muestra> muestrascercanas = new HashSet<Muestra>();
+
+	public List<Muestra> muestrasCercanas(Muestra muestra, double distancia) {
+		List<Muestra> muestrascercanas = new ArrayList<Muestra>();
 		for (Muestra m : this.zona.getMuestras()) {
 			if (m.getUbicacion().distanciaHasta(muestra.getUbicacion()) <= distancia) {
-					muestrascercanas.add(m);
+				muestrascercanas.add(m);
 			}
 		}
-			return muestrascercanas;
-		}
+		return muestrascercanas;
+	}
 
 }
