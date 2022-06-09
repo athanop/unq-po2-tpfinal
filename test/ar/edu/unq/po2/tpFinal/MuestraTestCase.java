@@ -192,7 +192,7 @@ class MuestraTestCase {
 	}
 	
 	@Test
-	void testCuandoUnUsuarioExpertoTrataDeVotarUnaMuestraQueYaVotóNoPuedeVolverAOpinar() throws Exception {
+	void testCuandoUnUsuarioExpertoTrataDeVotarUnaMuestraQueYaVotoNoPuedeVolverAOpinar() throws Exception {
 		muestra.verificarMuestra();
 		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, usuarioExperto);
 		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada2, usuarioExperto);
