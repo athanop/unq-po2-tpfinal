@@ -15,23 +15,23 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 	private Ubicacion epicentro;
 	private Integer radio;
 	private List<Muestra> muestras;
-	
+	private List<IOrganizacionObserver> observers;
 	
 	public ZonaDeCobertura(String nombreDeZona, Ubicacion epicentro, Integer radio) {
 		this.nombreDeZona = nombreDeZona;
 		this.epicentro = epicentro;
 		this.radio = radio;
 		this.muestras = new ArrayList<Muestra>();
+		this.observers = new ArrayList<IOrganizacionObserver>();
 	}
 
 	public List<Muestra> getMuestras() {
 		return this.muestras;
 	}
 
-	public String getNombreDeZona() {
-		return nombreDeZona;
+	public List<IOrganizacionObserver> getObservers() {
+		return observers;
 	}
-
 
 	public Ubicacion getEpicentro() {
 		return epicentro;
@@ -49,63 +49,46 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 		return (sumarRadios(this, zona) > primerUbicacion.distanciaHasta(segundaUbicacion));
 	}
 	
-	
-
 	private Integer sumarRadios(ZonaDeCobertura zonaDeCobertura, ZonaDeCobertura otraZona) {
 		return(zonaDeCobertura.getRadio() + otraZona.getRadio());
 	}
-
-	
 	
 	@Override
 	public void agregar(IOrganizacionObserver observer) {
-		// TODO Auto-generated method stub
-
+		this.observers.add(observer);
 	}
 
 	@Override
 	public void eliminar(IOrganizacionObserver observer) {
-		// TODO Auto-generated method stub
-
+		this.observers.remove(observer);
 	}
 
 	@Override
-	public void notificar() {
-		// TODO Auto-generated method stub
-
+	public void notificarNuevaMuestra(Muestra muestra) {
+		for(IOrganizacionObserver observer: this.getObservers()) {
+			observer.nuevaMuestra(this, muestra);
+		}
 	}
 
-	//public void muestraVerificada(Muestra muestra) {
-	//	this.avisarNuevaVerificacion(muestra);
-	//}
 
-	//private void avisarNuevaVerificacion(Muestra muestra) {
-	//	for (IOrganizacionObserver observer : observers) {
-	//		observer.actualizarNuevaVerificacion(this, muestra);
-	//	}
-
-//	}
-
-	//private void avisarNuevaMuestra(Muestra muestra) {
-	//	for (IOrganizacionObserver observer : observers) {
-	//		observer.actualizarNuevaMuestra(this, muestra);
-	//	}
-
-	//}
-
+	public void notificarNuevaVerificacion(Muestra muestra) {
+		for (IOrganizacionObserver observer : this.getObservers()) {
+			observer.nuevaVerificacion(this, muestra);
+		}
+	}
 	
 	//agrego este metodo para probar las muestras que voy agregando al método muestras cercanas
 	public void agregarMuestra(Muestra muestra) {
 		this.getMuestras().add(muestra);
 	}
 
-
-
 	public void muestraVerificada(Muestra muestra) {
 		// TODO Auto-generated method stub
 		
 	}
 
+
+	
 	
 	
 }

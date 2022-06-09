@@ -10,11 +10,15 @@ public class Organizacion implements IOrganizacionObserver {
 	private Ubicacion ubicacion;
 	private tipoDeOrganizacion tipo;
 	private Integer cantidadDePersonas;
+	private IFuncionalidadExterna nuevaMuestra;
+	private IFuncionalidadExterna verificacionMuestra;
 
-	public Organizacion(Ubicacion ubicacion, tipoDeOrganizacion tipo, Integer cantidadPersonas) {
+	public Organizacion(Ubicacion ubicacion, tipoDeOrganizacion tipo, Integer cantidadPersonas, IFuncionalidadExterna nuevaMuestra, IFuncionalidadExterna verificacionMuestra) {
 		this.ubicacion = ubicacion;
 		this.tipo = tipo;
 		this.cantidadDePersonas = cantidadPersonas;
+		this.nuevaMuestra = nuevaMuestra;
+		this.verificacionMuestra = verificacionMuestra;
 	}
 
 	public Ubicacion getUbicacion() {
@@ -28,17 +32,28 @@ public class Organizacion implements IOrganizacionObserver {
 	public Integer getCantidadDePersonas() {
 		return cantidadDePersonas;
 	}
+	
+	public IFuncionalidadExterna getNuevaMuestra() {
+		return nuevaMuestra;
+	}
+
+	public IFuncionalidadExterna getVerificacionMuestra() {
+		return verificacionMuestra;
+	}
+
 
 	@Override
-	public void nuevoEvento(Organizacion organizacion, ZonaDeCobertura zona, Muestra muestra) {
-		// TODO Auto-generated method stub
-
+	public void nuevaMuestra(ZonaDeCobertura zona, Muestra muestra) {
+		this.getNuevaMuestra().nuevoEvento(this, zona, muestra);
+		
 	}
 
 	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-
+	public void nuevaVerificacion(ZonaDeCobertura zonaDeCobertura, Muestra muestra) {
+		this.getVerificacionMuestra().nuevoEvento(this, zonaDeCobertura, muestra);
 	}
 
+	
+	
+	
 }

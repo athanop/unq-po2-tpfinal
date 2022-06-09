@@ -14,6 +14,8 @@ class UsuarioTest {
 	Ubicacion ubicacion1;
 	BufferedImage imagen1;
 	Opinion opinion;
+	
+	
 	/*
 	 * @BeforeEach void setUp() throws Exception { app = new SistemaMuestra();
 	 * usuarioBasico1 = new UsuarioBasico(app); muestra = new Muestra(imagen1,

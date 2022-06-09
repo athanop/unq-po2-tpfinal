@@ -5,7 +5,8 @@ import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
 
 public interface IOrganizacionObserver {
 
+	public void nuevaMuestra(ZonaDeCobertura zona, Muestra muestra);
+
+	public void nuevaVerificacion(ZonaDeCobertura zonaDeCobertura, Muestra muestra);
 	
-	public void nuevoEvento(Organizacion organizacion, ZonaDeCobertura zona, Muestra muestra);
-	public void update();
 }

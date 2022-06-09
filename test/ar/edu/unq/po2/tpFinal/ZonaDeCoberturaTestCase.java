@@ -3,9 +3,16 @@ package ar.edu.unq.po2.tpFinal;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
+import ar.edu.unq.po2.tpFinal.Enumerativos.Calificacion;
+import ar.edu.unq.po2.tpFinal.EstadoDeMuestra.EstadoDeMuestra;
+import ar.edu.unq.po2.tpFinal.Observer.IOrganizacionObserver;
 import ar.edu.unq.po2.tpFinal.Observer.Organizacion;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
@@ -14,17 +21,63 @@ class ZonaDeCoberturaTestCase {
 
 	ZonaDeCobertura zonaDeCobertura, otraZonaDeCobertura;
 	Organizacion organizacion;
+	IOrganizacionObserver suscriptor1;
+	IOrganizacionObserver suscriptor2;
 	Ubicacion ubicacion1, ubicacion2;
-	
+	Muestra muestra;
 	
 	@BeforeEach
 	void setUp() throws Exception {
+		muestra = mock(Muestra.class);
+		when(muestra.getNivelDeVerificacion()).thenReturn("verificada");
 		ubicacion1 = mock(Ubicacion.class);
 		ubicacion2 = mock(Ubicacion.class);
 		organizacion = mock(Organizacion.class);
 		
+		suscriptor1 = mock(Organizacion.class);
+		suscriptor2 = mock(Organizacion.class);
+
+		zonaDeCobertura = new ZonaDeCobertura("Berazategui", ubicacion1, 500);
 	}
 
+	
+	@Test
+	void testSuscribirObserverAZonaDeCobertura() {
+		zonaDeCobertura.agregar(this.suscriptor1);
+		assertEquals(1, zonaDeCobertura.getObservers().size());
+	}
+	
+	@Test
+	void testDesuscribirObserverAZonaDeCobertura() {
+		zonaDeCobertura.agregar(this.suscriptor1);
+		zonaDeCobertura.eliminar(this.suscriptor1);
+		assertEquals(0, zonaDeCobertura.getObservers().size());
+	}
+	
+	@Test
+	void testNotificarSuscriptoresNuevaMuestra() {	
+		zonaDeCobertura.agregar(suscriptor1);
+		zonaDeCobertura.agregar(suscriptor2);
+		
+		zonaDeCobertura.agregarMuestra(muestra);
+		zonaDeCobertura.notificarNuevaMuestra(muestra);
+		
+		verify(suscriptor1, times(1)).nuevaMuestra(zonaDeCobertura, muestra);
+		verify(suscriptor2, times(1)).nuevaMuestra(zonaDeCobertura, muestra);
+	}
+	
+	@Test
+	void testNotificarSuscriptoresNuevaVerificacion() {	
+		zonaDeCobertura.agregar(suscriptor1);
+		zonaDeCobertura.agregar(suscriptor2);
+		
+		zonaDeCobertura.agregarMuestra(muestra);
+		zonaDeCobertura.notificarNuevaVerificacion(muestra);
+		
+		verify(suscriptor1, times(1)).nuevaVerificacion(zonaDeCobertura, muestra);
+		verify(suscriptor2, times(1)).nuevaVerificacion(zonaDeCobertura, muestra);
+	}
+	
 	
 	@Test
 	void testUnaZonaSeNoSolapaConOtraZona(){

@@ -28,7 +28,6 @@ public class Muestra {
 	LocalDate fechaDeCreacion;
 	LocalDate fechaDeUltimaVotacion;
 	Map<Usuario, Opinion> historialDeOpiniones;
-	List<ZonaDeCobertura> zonasDeCobertura;
 
 	public Muestra(BufferedImage fotoVinchuca, Ubicacion ubicacion, Usuario usuario, Opinion opinion,
 			LocalDate fechaDeCreacion) throws Exception {
@@ -37,7 +36,6 @@ public class Muestra {
 		this.ubicacion = ubicacion;
 		this.usuario = usuario;
 		this.estadoActual = new EstadoDeMuestraVotada();
-		this.zonasDeCobertura = new ArrayList<ZonaDeCobertura>();
 		this.historialDeOpiniones = new HashMap<Usuario, Opinion>();
 		this.agregarLaOpinionDelUsuario(opinion, usuario);
 		this.fechaDeCreacion = fechaDeCreacion;
@@ -84,14 +82,7 @@ public class Muestra {
 		this.estadoActual = estado;
 	}
 
-	public List<ZonaDeCobertura> getZonasDeCobertura() {
-		return this.zonasDeCobertura;
-	}
-
-	public void agregarZonaDeCobertura(ZonaDeCobertura zona) {
-		this.zonasDeCobertura.add(zona);
-	}
-
+	
 	public void verificarMuestra() throws Exception {
 		this.estadoActual.actualizarEstado(this);
 	}
@@ -100,14 +91,8 @@ public class Muestra {
 		return this.getEstadoMuestra().getNivelDeVerificacion(this);
 	}
 
-	public void muestrasCercanas(Muestra muestra, double distancia) {
-		this.ubicacion.muestrasCercanas(muestra, distancia);
-	}
-
-	public void avisarVerificacionAZonasDeCobertura() {
-		for (ZonaDeCobertura zona : this.zonasDeCobertura) {
-			zona.muestraVerificada(this);
-		}
+	public void avisarVerificacionAZonaDeCobertura() {
+		this.getUbicacion().getZona().muestraVerificada(this);		
 	}
 
 	public boolean contieneAlUsuario(Usuario usuario) {
@@ -131,7 +116,6 @@ public class Muestra {
 	private void actualizarFechaUltimaVotacion(Opinion opinion) {
 		this.fechaDeUltimaVotacion = opinion.getFechaDeEmision();
 	}
-	// es el objetoSistemaMuestra para mejorar
 
 	public List<Calificacion> getCalificacionDeOpiniones() {
 		ArrayList<Calificacion> opiniones = new ArrayList<Calificacion>();

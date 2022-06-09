@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.tpFinal.Enumerativos.tipoDeOrganizacion;
+import ar.edu.unq.po2.tpFinal.Observer.IFuncionalidadExterna;
 import ar.edu.unq.po2.tpFinal.Observer.Organizacion;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
@@ -18,6 +19,8 @@ class OrganizacionTestCase {
 	ZonaDeCobertura zona2;
 	ZonaDeCobertura zona3;
 	Ubicacion ubicacion;
+	IFuncionalidadExterna nuevaMuestra;
+	IFuncionalidadExterna verificacionMuestra;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -25,7 +28,7 @@ class OrganizacionTestCase {
 		zona1 = mock(ZonaDeCobertura.class);
 		zona2 = mock(ZonaDeCobertura.class);
 		zona3 = mock(ZonaDeCobertura.class);
-		organizacion = new Organizacion(ubicacion, tipoDeOrganizacion.SALUD, 5);
+		organizacion = new Organizacion(ubicacion, tipoDeOrganizacion.SALUD, 5, nuevaMuestra, verificacionMuestra);
 	}
 
 	@Test
@@ -34,6 +37,8 @@ class OrganizacionTestCase {
 		assertEquals(organizacion.getTipo(), tipoDeOrganizacion.SALUD);
 		assertEquals(organizacion.getUbicacion(), ubicacion);
 	}
+	
+	
 	
 	
 

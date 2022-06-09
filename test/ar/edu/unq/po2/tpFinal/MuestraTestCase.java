@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.tpFinal.Enumerativos.Calificacion;
 import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.Usuario;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
+import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
 
 class MuestraTestCase {
 
@@ -30,8 +32,10 @@ class MuestraTestCase {
 	Opinion opinionGuasayana;
 	Opinion opinionGuasayana2;
 	Ubicacion ubicacion;
+	Ubicacion ubicacionEpicentro;
 	BufferedImage fotoVinchuca;
-
+	ZonaDeCobertura zona1;
+	
 	@BeforeEach
 	void SetUp() throws Exception {
 
@@ -43,9 +47,12 @@ class MuestraTestCase {
 		opinionChincheFoliada2 = mock(Opinion.class);
 		opinionGuasayana = mock(Opinion.class);
 		opinionGuasayana2 = mock(Opinion.class);
-
+		zona1 = mock(ZonaDeCobertura.class);
 		ubicacion = mock(Ubicacion.class);
 		fotoVinchuca = mock(BufferedImage.class);
+		
+		
+		when(ubicacion.getZona()).thenReturn(zona1);
 
 		muestra = new Muestra(fotoVinchuca, ubicacion, sofiaBasico, opinionGuasayana, LocalDate.of(2022, 5, 13));
 

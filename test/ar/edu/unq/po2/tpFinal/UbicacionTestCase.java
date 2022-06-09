@@ -74,7 +74,7 @@ class UbicacionTestCase {
 		ubicacion1.getZona().agregarMuestra(otraMuestra);
 		ubicacion1.getZona().agregarMuestra(otraMuestraMuyLejos);
 		assertTrue(ubicacion1.muestrasCercanas(muestra, 1359.2545257553352).contains(otraMuestra)); 
-		// confio en que sigue funcionando bien
+		
 	}
 
 }

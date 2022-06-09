@@ -147,37 +147,5 @@ public class Usuario {
 
 }
 
-//public abstract class Usuario {
-//
-//	private SistemaMuestra aplicacion;
 
-//	public Usuario(SistemaMuestra aplicacion) {
-//		this.aplicacion = aplicacion;
-//	}
 
-//	public SistemaMuestra getAplicacion() {
-//		return aplicacion;
-//	}
-
-//	public void opinar(Calificacion calificacionMuestra, Muestra muestra) {
-//		this.getAplicacion().calificar(calificacionMuestra, muestra);
-
-//	}
-
-//	public void enviarMuestra(Muestra muestra) {
-//		this.aplicacion.subir(muestra);
-
-//	}
-
-//	public Boolean subioMuestraAlSistema(Muestra muestra) {
-//		return this.aplicacion.tieneMuestra(muestra);
-//	}
-
-//	public void agregarOpinionEnviada(Opinion opinion) {
-//		this.opinionesEnviadas.add(opinion);
-//	}
-
-//	public List<Opinion> getOpinionesEnviadas() {
-//		return this.opinionesEnviadas;
-//	}
-//}

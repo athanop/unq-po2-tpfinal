@@ -196,6 +196,5 @@ class FiltroTestCase {
 		assertFalse(filtroCompuesto.contains(muestraInfestans));
 	}
 
-	// falta filtro compuesto
 
 }
