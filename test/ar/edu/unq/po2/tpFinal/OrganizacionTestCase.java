@@ -17,9 +17,7 @@ import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
 class OrganizacionTestCase {
 	
 	Organizacion organizacion;
-	ZonaDeCobertura zona1;
-	ZonaDeCobertura zona2;
-	ZonaDeCobertura zona3;
+	ZonaDeCobertura zona;
 	Ubicacion ubicacion;
 	IFuncionalidadExterna nuevaMuestra;
 	IFuncionalidadExterna verificacionMuestra;
@@ -29,9 +27,7 @@ class OrganizacionTestCase {
 	void setUp() throws Exception {
 		muestra = mock(Muestra.class);
 		ubicacion = mock(Ubicacion.class);
-		zona1 = mock(ZonaDeCobertura.class);
-		zona2 = mock(ZonaDeCobertura.class);
-		zona3 = mock(ZonaDeCobertura.class);
+		zona = mock(ZonaDeCobertura.class);
 		nuevaMuestra = mock(IFuncionalidadExterna.class);
 		verificacionMuestra = mock(IFuncionalidadExterna.class);
 		organizacion = new Organizacion(ubicacion, tipoDeOrganizacion.SALUD, 5, nuevaMuestra, verificacionMuestra);
@@ -49,17 +45,17 @@ class OrganizacionTestCase {
 	@Test
 	void testOrganizacionNotificadaConNuevaMuestra() {
 	
-		organizacion.nuevaMuestra(zona1, muestra);
+		organizacion.nuevaMuestra(zona, muestra);
 		
-		verify(nuevaMuestra, times(1)).nuevoEvento(organizacion, zona1, muestra);
+		verify(nuevaMuestra, times(1)).nuevoEvento(organizacion, zona, muestra);
 	}
 	
 	@Test
 	void testOrganizacionNotificadaConNuevaVerificacion() {
 		
-		organizacion.nuevaVerificacion(zona1, muestra);
+		organizacion.nuevaVerificacion(zona, muestra);
 		
-		verify(verificacionMuestra, times(1)).nuevoEvento(organizacion, zona1, muestra);
+		verify(verificacionMuestra, times(1)).nuevoEvento(organizacion, zona, muestra);
 	}
 	
 	
