@@ -20,7 +20,7 @@ class ZonaDeCoberturaTestCase {
 	Organizacion organizacion;
 	IOrganizacionObserver suscriptor1;
 	IOrganizacionObserver suscriptor2;
-	Ubicacion ubicacion1, ubicacion2, ubicacion3;
+	Ubicacion ubicacion1, ubicacion2, ubicacion3, ubicacion4, ubicacion5;
 	Muestra muestra;
 
 	@BeforeEach
@@ -29,6 +29,7 @@ class ZonaDeCoberturaTestCase {
 		when(muestra.getNivelDeVerificacion()).thenReturn("verificada");
 		ubicacion1 = mock(Ubicacion.class);
 		ubicacion2 = mock(Ubicacion.class);
+		
 		ubicacion3 = mock(Ubicacion.class);
 		organizacion = mock(Organizacion.class);
 
@@ -36,6 +37,11 @@ class ZonaDeCoberturaTestCase {
 		suscriptor2 = mock(Organizacion.class);
 
 		zonaDeCobertura = new ZonaDeCobertura("Berazategui", ubicacion1, 500);
+		otraZonaDeCobertura = new ZonaDeCobertura("Wilde", ubicacion1, 400);
+		
+		when(muestra.getUbicacion()).thenReturn(ubicacion1);
+		
+		
 	}
 
 	@Test
@@ -55,6 +61,8 @@ class ZonaDeCoberturaTestCase {
 	void testNotificarSuscriptoresNuevaMuestra() {
 		zonaDeCobertura.agregar(suscriptor1);
 		zonaDeCobertura.agregar(suscriptor2);
+		
+		when(ubicacion1.getZona()).thenReturn(otraZonaDeCobertura);
 
 		zonaDeCobertura.agregarMuestra(muestra);
 
@@ -67,7 +75,9 @@ class ZonaDeCoberturaTestCase {
 		zonaDeCobertura.agregar(suscriptor1);
 		zonaDeCobertura.agregar(suscriptor2);
 
+		when(ubicacion1.getZona()).thenReturn(otraZonaDeCobertura);
 		zonaDeCobertura.agregarMuestra(muestra);
+		
 		zonaDeCobertura.notificarNuevaVerificacion(muestra);
 
 		verify(suscriptor1, times(1)).nuevaVerificacion(zonaDeCobertura, muestra);

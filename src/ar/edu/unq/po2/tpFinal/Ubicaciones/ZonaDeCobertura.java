@@ -86,9 +86,9 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 		this.notificarNuevaVerificacion(muestra);
 	}
 
-	private boolean perteneceAZonaDeCobertura(Muestra muestra) {
+	private Boolean perteneceAZonaDeCobertura(Muestra muestra) {
 
-		return epicentro.distanciaHasta(muestra.getUbicacion()) <= radio;
+		return this.seSolapaCon(muestra.getUbicacion().getZona());
 	}
 
 	public Set<ZonaDeCobertura> zonasQueSolapan(Set<ZonaDeCobertura> zonas) {

@@ -66,7 +66,7 @@ public class Ubicacion {
 		return this.distanciaHasta(ubicacion) < kilometros;
 	}
 
-	public List<Muestra> muestrasCercanas(Muestra muestra, double distancia) {
+	public List<Muestra> muestrasCercanas(Muestra muestra, Double distancia) {
 		List<Muestra> muestrascercanas = new ArrayList<Muestra>();
 		for (Muestra m : this.zona.getMuestras()) {
 			if (m.getUbicacion().distanciaHasta(muestra.getUbicacion()) <= distancia) {
