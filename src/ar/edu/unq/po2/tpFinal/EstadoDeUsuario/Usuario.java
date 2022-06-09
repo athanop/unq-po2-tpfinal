@@ -18,7 +18,9 @@ public class Usuario {
 	private String identificacion;
 	private Set<Muestra> muestras;
 	private List<Opinion> opinionesEnviadas;
-	private AplicacionWeb aplicacionWeb; // AplicacionWeb? de muestra
+	
+
+	private AplicacionWeb aplicacionWeb; // AplicacionWeb de muestra
 	private EstadoDeUsuario estadoDeUsuario;
 
 	public Usuario(String identificacion, AplicacionWeb aplicacionWeb) {
@@ -41,6 +43,10 @@ public class Usuario {
 		this.estadoDeUsuario.opinarSobreMuestra(muestra, opinion, this);
 	}
 
+	public void setOpinionesEnviadas(List<Opinion> opinionesEnviadas) {
+		this.opinionesEnviadas = opinionesEnviadas;
+	}
+	
 	public Integer getEnvios() {
 		return this.muestras.size();
 	}
@@ -66,6 +72,10 @@ public class Usuario {
 		return this.muestras;
 	}
 
+	public void setMuestras(Set<Muestra> muestras) {
+		this.muestras = muestras;
+	}
+
 	public Boolean esUsuarioExperto() {
 		return this.estadoDeUsuario.esUsuarioExperto();
 	}
@@ -74,25 +84,22 @@ public class Usuario {
 		return this.estadoDeUsuario.esUsuarioBasico();
 	}
 
-	private Integer cantidadDeOpinionesEnLosUltimos30Dias() {
+	public Integer cantidadDeOpinionesEnLosUltimos30Dias() {
 		return this.opinionesDelUltimoMes().size();
 	}
 
-	private ArrayList<Opinion> opinionesDelUltimoMes() {
+	public ArrayList<Opinion> opinionesDelUltimoMes() {
 		ArrayList<Opinion> opinionesDelUltimoMes = new ArrayList<Opinion>();
 		for (Opinion opinion : this.getOpinionesEnviadas()) {
-			agregarAListaDeOpinionesDeUltimoMesSi(opinionesDelUltimoMes, opinion);
+			if (laOpinionEstaDentroDe30DiasDeLaFecha(opinion)) {
+				opinionesDelUltimoMes.add(opinion);
+			}
 		}
 		return opinionesDelUltimoMes;
 	}
 
-	private void agregarAListaDeOpinionesDeUltimoMesSi(ArrayList<Opinion> opinionesDelUltimoMes, Opinion opinion) {
-		if (laOpinionEstaDentroDe30DiasDeLaFecha(opinion)) {
-			opinionesDelUltimoMes.add(opinion);
-		}
-	}
 
-	private Boolean laOpinionEstaDentroDe30DiasDeLaFecha(Opinion opinion) {
+	public Boolean laOpinionEstaDentroDe30DiasDeLaFecha(Opinion opinion) {
 		LocalDate fechaActual = LocalDate.now();
 		return ChronoUnit.DAYS.between(opinion.getFechaDeEmision(), fechaActual) <= 30;
 		/*
@@ -102,25 +109,23 @@ public class Usuario {
 		 */
 	}
 
-	private Integer cantidadDeEnviosEnLosUltimos30Dias() {
+	public Integer cantidadDeEnviosEnLosUltimos30Dias() {
 		return this.enviosDelUltimoMes().size();
 	}
 
-	private ArrayList<Muestra> enviosDelUltimoMes() {
+	public List<Muestra> enviosDelUltimoMes() {
 		ArrayList<Muestra> enviosDelUltimoMes = new ArrayList<Muestra>();
 		for (Muestra muestra : this.getMuestrasEnviadas()) {
-			agregarAListaDeMuestrasDelUltimoMesSi(enviosDelUltimoMes, muestra);
+			if (laMuestraEstaDentroDe30DiasDeLaFecha(muestra)) {
+				enviosDelUltimoMes.add(muestra);
+			}
 		}
 		return enviosDelUltimoMes;
 	}
 
-	private void agregarAListaDeMuestrasDelUltimoMesSi(ArrayList<Muestra> enviosDelUltimoMes, Muestra muestra) {
-		if (laMuestraEstaDentroDe30DiasDeLaFecha(muestra)) {
-			enviosDelUltimoMes.add(muestra);
-		}
-	}
+	
 
-	private Boolean laMuestraEstaDentroDe30DiasDeLaFecha(Muestra muestra) {
+	public Boolean laMuestraEstaDentroDe30DiasDeLaFecha(Muestra muestra) {
 		LocalDate fechaActual = LocalDate.now();
 		return ChronoUnit.DAYS.between(muestra.getFechaDeCreacion(), fechaActual) <= 30;
 	}

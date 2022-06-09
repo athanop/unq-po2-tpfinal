@@ -190,6 +190,16 @@ class MuestraTestCase {
 
 		assertThrows(Exception.class, () -> muestra.agregarLaOpinion(opinionGuasayana2, usuarioExperto));
 	}
+	
+	@Test
+	void testCuandoUnUsuarioExpertoTrataDeVotarUnaMuestraQueYaVotóNoPuedeVolverAOpinar() throws Exception {
+		muestra.verificarMuestra();
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, usuarioExperto);
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada2, usuarioExperto);
+		muestra.verificarMuestra();
+
+		assertThrows(Exception.class, () -> muestra.agregarLaOpinion(opinionGuasayana2, usuarioExperto));
+	}
 
 	@Test
 	void testUnaMuestraTieneNivelDeVerificacionVotadaSiNoOpinaNingunExperto() {
@@ -214,7 +224,8 @@ class MuestraTestCase {
 	}
 	
 	
+
 	// 1) Faltaria que cuando una Muestra agrega una ZonaDeCobertura se le agregue a su lista de ZonasDeCoberturas.
 	
-	// 2) Faltaria que una Muestra pueda retornar una lista de Muestras cercanas.
+	
 }
