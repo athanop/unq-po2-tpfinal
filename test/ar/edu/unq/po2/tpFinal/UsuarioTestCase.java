@@ -1,6 +1,7 @@
 package ar.edu.unq.po2.tpFinal;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -169,15 +170,32 @@ class UsuarioTestCase {
 
 		usuarioExperto.setMuestras(muestrasEnviadas);
 		assertEquals(usuarioExperto.cantidadDeEnviosEnLosUltimos30Dias(), 0);
+		
 	}
+	/*
 
-	//@Test
-	//void testUnUsuarioQueTieneEstadoExpertoAlActualizarCategoriaBajoLasMismasCondicionesSigueSiendoExperto() {
-	//	usuarioExperto.setEstadoDeUsuario(estadoExperto);
-	//	usuarioExperto.actualizarCategoria();
-	//	usuarioExperto.actualizarCategoria();
+	@Test
+	void testUnUsuarioQueTieneEstadoExpertoAlActualizarCategoriaBajoLasMismasCondicionesSigueSiendoExperto(){
+		usuarioExperto.setEstadoDeUsuario(estadoExperto);
+		usuarioExperto.actualizarCategoria();
+		usuarioExperto.actualizarCategoria();
 
-	//	assertEquals((usuarioExperto.actualizarCategoria()), usuarioExperto.getEstadoDeUsuario());
-	//}
+		//assertEquals((usuarioExperto.actualizarCategoria()), usuarioExperto.getEstadoDeUsuario());
+		assertEquals((usuarioExperto.actualizarCategoria()), (usuarioExperto.getEstadoDeUsuario()));
+	}
+	*/
+	
+	// test de usuarios especialistas
+	@Test
+	void testUnUsuarioEspecialistaSiempreTieneEstadoExperto() {
+		usuarioBasico.cambiarAUsuarioEspecialista();
+		
+		assertFalse(usuarioBasico.esUsuarioBasico());
+	}
+	
+	@Test
+	void testUnUsuarioEspecialista() {
+		
+	}
 
 }
