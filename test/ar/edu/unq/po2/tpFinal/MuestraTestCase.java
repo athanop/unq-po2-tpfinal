@@ -4,12 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -219,6 +222,31 @@ class MuestraTestCase {
 		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada2, nahuelExperto);
 
 		assertEquals(Calificacion.CHINCHE_FOLIADA, muestra.getResultadoActual());
+	}
+
+	@Test
+	void testUnMuestraConoceSusMuestrasCercanas() throws Exception {
+		ZonaDeCobertura zonaDeCobertura = mock(ZonaDeCobertura.class);
+		ZonaDeCobertura zonaDeCobertura2 = mock(ZonaDeCobertura.class);
+		ZonaDeCobertura zonaDeCobertura3 = mock(ZonaDeCobertura.class);
+
+		Ubicacion ubicacion = new Ubicacion(40d, 50d, zonaDeCobertura);
+		Ubicacion ubicacion2 = new Ubicacion(50d, 40d, zonaDeCobertura2);
+		Ubicacion ubicacion3 = new Ubicacion(500d, 400d, zonaDeCobertura3);
+
+		when(zonaDeCobertura.getEpicentro()).thenReturn(ubicacion);
+		when(zonaDeCobertura2.getEpicentro()).thenReturn(ubicacion2);
+		when(zonaDeCobertura3.getEpicentro()).thenReturn(ubicacion3);
+
+		Muestra muestra2 = new Muestra(fotoVinchuca, ubicacion2, nahuelExperto, opinionChincheFoliada2,
+				LocalDate.of(2022, 5, 13));
+		Muestra muestra3 = new Muestra(fotoVinchuca, ubicacion3, usuarioBasico, opinionGuasayana,
+				LocalDate.of(2022, 5, 13));
+
+		List<Muestra> muestras = Arrays.asList(muestra, muestra2, muestra3);
+		when(zonaDeCobertura.getMuestras()).thenReturn(muestras);
+
+		assertTrue(muestra.muestrasCercanas(muestra, 1359.2545257553352).contains(muestra2));
 	}
 
 }

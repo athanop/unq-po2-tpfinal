@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.Usuario;
 import ar.edu.unq.po2.tpFinal.FiltroDeBusqueda.IFiltroBusquedaMuestra;
+import ar.edu.unq.po2.tpFinal.Ubicaciones.Ubicacion;
 import ar.edu.unq.po2.tpFinal.Ubicaciones.ZonaDeCobertura;
 
 class AplicacionWebTestCase {
@@ -141,6 +142,26 @@ class AplicacionWebTestCase {
 		aplicacionWeb.zonasQueSeSolapanCon(zonaDeCobertura);
 
 		verify(zonaDeCobertura).zonasQueSolapan(zonasDeCobertura);
+	}
+
+	@Test
+	void testUnaAplicacionConoceLasMuestrasCercanasDeUnaMuestra() {
+		Ubicacion ubicacion = new Ubicacion(40d, 50d, zonaDeCobertura);
+		Ubicacion ubicacion2 = new Ubicacion(50d, 40d, zonaDeCobertura2);
+		Ubicacion ubicacion3 = new Ubicacion(500d, 400d, zonaDeCobertura3);
+
+		when(zonaDeCobertura.getEpicentro()).thenReturn(ubicacion);
+		when(zonaDeCobertura2.getEpicentro()).thenReturn(ubicacion2);
+		when(zonaDeCobertura3.getEpicentro()).thenReturn(ubicacion3);
+		when(muestra.getUbicacion()).thenReturn(ubicacion);
+		when(muestra2.getUbicacion()).thenReturn(ubicacion2);
+		when(muestra3.getUbicacion()).thenReturn(ubicacion3);
+		aplicacionWeb.registrarMuestra(muestra);
+		aplicacionWeb.registrarMuestra(muestra2);
+		aplicacionWeb.registrarMuestra(muestra3);
+		aplicacionWeb.muestrasCercanas(muestra, 1359.2545257553352);
+
+		verify(muestra).muestrasCercanas(muestra, 1359.2545257553352);
 	}
 
 }
