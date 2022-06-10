@@ -7,5 +7,6 @@ public interface IListenerZonaCobertura {
 	public void agregar(IOrganizacionObserver observer);
 	public void eliminar(IOrganizacionObserver observer);
 	public void notificarNuevaMuestra(Muestra muestra);
+	public void notificarNuevaVerificacion(Muestra muestra);
 	
 }

@@ -68,7 +68,8 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 			observer.nuevaMuestra(this, muestra);
 		}
 	}
-
+	
+	@Override
 	public void notificarNuevaVerificacion(Muestra muestra) {
 		for (IOrganizacionObserver observer : this.getObservers()) {
 			observer.nuevaVerificacion(this, muestra);
