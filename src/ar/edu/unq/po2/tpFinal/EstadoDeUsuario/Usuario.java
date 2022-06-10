@@ -11,15 +11,12 @@ import ar.edu.unq.po2.tpFinal.AplicacionWeb;
 import ar.edu.unq.po2.tpFinal.Muestra;
 import ar.edu.unq.po2.tpFinal.Opinion;
 
-// import java.util.function.BooleanSupplier;
-
 public class Usuario {
 
 	private String identificacion;
 	private Set<Muestra> muestras;
 	private List<Opinion> opinionesEnviadas;
-
-	private AplicacionWeb aplicacionWeb; // AplicacionWeb de muestra
+	private AplicacionWeb aplicacionWeb; 
 	private EstadoDeUsuario estadoDeUsuario;
 
 	public Usuario(String identificacion, AplicacionWeb aplicacionWeb) {

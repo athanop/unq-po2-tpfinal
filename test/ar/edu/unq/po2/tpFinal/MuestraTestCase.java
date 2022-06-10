@@ -238,7 +238,8 @@ class MuestraTestCase {
 		when(zonaDeCobertura2.getEpicentro()).thenReturn(ubicacion2);
 		when(zonaDeCobertura3.getEpicentro()).thenReturn(ubicacion3);
 
-		Muestra muestra1 = new Muestra(fotoVinchuca, ubicacion, sofiaBasico, opinionGuasayana, LocalDate.of(2022, 5, 13));
+		Muestra muestra1 = new Muestra(fotoVinchuca, ubicacion, sofiaBasico, opinionGuasayana,
+				LocalDate.of(2022, 5, 13));
 		Muestra muestra2 = new Muestra(fotoVinchuca, ubicacion2, nahuelExperto, opinionChincheFoliada2,
 				LocalDate.of(2022, 5, 13));
 		Muestra muestra3 = new Muestra(fotoVinchuca, ubicacion3, usuarioBasico, opinionGuasayana,

@@ -53,8 +53,6 @@ class FiltroTestCase {
 		filtroNivelVerificacionVotada = new FiltroNivelDeVerificacion("votada");
 		filtroNivelVerificacionVerificada = new FiltroNivelDeVerificacion("verificada");
 
-		// filtroCompuestoAnd = new FiltroCompuestoAnd();
-
 		muestraInfestans = mock(Muestra.class);
 		muestraGuasayana = mock(Muestra.class);
 		muestraSordida = mock(Muestra.class);
@@ -195,6 +193,5 @@ class FiltroTestCase {
 		assertFalse(filtroCompuesto.contains(muestraGuasayana));
 		assertFalse(filtroCompuesto.contains(muestraInfestans));
 	}
-
 
 }
