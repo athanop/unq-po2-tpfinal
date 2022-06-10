@@ -99,6 +99,13 @@ class UsuarioTestCase {
 
 	// ACA EMPIEZAN LOS TEST DEL USUARIO BASICO
 	@Test
+	void testUnUsuarioAlSerCreadoConoceSusDatos() {
+		assertEquals(usuarioBasico.getEnvios(),0);
+		assertEquals(usuarioBasico.getRevisiones(), 0);
+		assertEquals(usuarioBasico.getIdentificacion(), "IdNahuel");
+		
+	}
+	@Test
 	void testUnUsuarioAlSerCreadoEsUnUsuarioBasico() {
 		assertTrue(usuarioBasico.esUsuarioBasico());
 	}

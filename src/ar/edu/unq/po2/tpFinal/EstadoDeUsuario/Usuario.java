@@ -18,11 +18,9 @@ public class Usuario {
 	private String identificacion;
 	private Set<Muestra> muestras;
 	private List<Opinion> opinionesEnviadas;
-	
 
 	private AplicacionWeb aplicacionWeb; // AplicacionWeb de muestra
 	private EstadoDeUsuario estadoDeUsuario;
-
 
 	public Usuario(String identificacion, AplicacionWeb aplicacionWeb) {
 		this.identificacion = identificacion;
@@ -32,10 +30,6 @@ public class Usuario {
 		this.estadoDeUsuario = new EstadoDeUsuarioBasico();
 	}
 
-	public EstadoDeUsuario getEstadoDeUsuario() {
-		return estadoDeUsuario;
-	}
-	
 	public String getIdentificacion() {
 		return this.identificacion;
 	}
@@ -51,7 +45,7 @@ public class Usuario {
 	public void setOpinionesEnviadas(List<Opinion> opinionesEnviadas) {
 		this.opinionesEnviadas = opinionesEnviadas;
 	}
-	
+
 	public Integer getEnvios() {
 		return this.muestras.size();
 	}
@@ -103,7 +97,6 @@ public class Usuario {
 		return opinionesDelUltimoMes;
 	}
 
-
 	public Boolean laOpinionEstaDentroDe30DiasDeLaFecha(Opinion opinion) {
 		LocalDate fechaActual = LocalDate.now();
 		return ChronoUnit.DAYS.between(opinion.getFechaDeEmision(), fechaActual) <= 30;
@@ -127,8 +120,6 @@ public class Usuario {
 		}
 		return enviosDelUltimoMes;
 	}
-
-	
 
 	public Boolean laMuestraEstaDentroDe30DiasDeLaFecha(Muestra muestra) {
 		LocalDate fechaActual = LocalDate.now();
@@ -156,6 +147,3 @@ public class Usuario {
 	}
 
 }
-
-
-

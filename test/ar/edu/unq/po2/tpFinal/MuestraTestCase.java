@@ -126,7 +126,7 @@ class MuestraTestCase {
 
 	@Test
 	void testSeAgregaUnaOpinionEnElHistorialDeOpinionesYContiene2DeLasMismas() throws Exception {
-		muestra.agregarLaOpinion(opinionChincheFoliada2, usuarioBasico);
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada2, usuarioBasico);
 
 		assertEquals(2, muestra.getHistorialDeOpiniones().size());
 	}

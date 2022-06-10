@@ -11,9 +11,9 @@ public class FiltroCompuestoAnd extends FiltroDeMuestraCompuesto {
 	}
 
 	@Override
-	protected Boolean muestraEstaContenidaEnLosFiltros(List<Muestra> muestras, int i, List<Muestra> muestrasDeFiltro1,
+	protected Boolean muestraEstaContenidaEnLosFiltros(Muestra muestra, List<Muestra> muestrasDeFiltro1,
 			List<Muestra> muestrasDeFiltro2) {
-		return muestrasDeFiltro1.contains(muestras.get(i)) && muestrasDeFiltro2.contains(muestras.get(i));
+		return muestrasDeFiltro1.contains(muestra) && muestrasDeFiltro2.contains(muestra);
 	}
 
 }

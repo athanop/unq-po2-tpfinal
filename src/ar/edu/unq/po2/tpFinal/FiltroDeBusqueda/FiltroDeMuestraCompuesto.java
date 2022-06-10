@@ -30,14 +30,14 @@ public abstract class FiltroDeMuestraCompuesto implements IFiltroBusquedaMuestra
 		for (int i = 0; i < muestras.size(); i++) {
 			List<Muestra> muestrasDeFiltro1 = this.getTiposDeFiltrosChildren().get(0).buscarMuestras(muestras);
 			List<Muestra> muestrasDeFiltro2 = this.getTiposDeFiltrosChildren().get(1).buscarMuestras(muestras);
-			if (muestraEstaContenidaEnLosFiltros(muestras, i, muestrasDeFiltro1, muestrasDeFiltro2)) {
+			if (muestraEstaContenidaEnLosFiltros(muestras.get(i), muestrasDeFiltro1, muestrasDeFiltro2)) {
 				resultadoBusquedaCompuesta.add(muestras.get(i));
 			}
 		}
 		return resultadoBusquedaCompuesta;
 	}
 
-	protected abstract Boolean muestraEstaContenidaEnLosFiltros(List<Muestra> muestras, int i,
+	protected abstract Boolean muestraEstaContenidaEnLosFiltros(Muestra muestra,
 			List<Muestra> muestrasDeFiltro1, List<Muestra> muestrasDeFiltro2);
 
 }
