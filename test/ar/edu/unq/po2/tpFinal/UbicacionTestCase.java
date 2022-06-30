@@ -22,17 +22,17 @@ class UbicacionTestCase {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		ubicacion2 = new Ubicacion(40d, 50d, zona);
+		ubicacion2 = new Ubicacion(40d, 50d);
 		zona2 = new ZonaDeCobertura("Wilde", ubicacion2, 30);
-		ubicacion1 = new Ubicacion(50d, 40d, zona2);
+		ubicacion1 = new Ubicacion(50d, 40d);
 		zona = new ZonaDeCobertura("Bernal", ubicacion1, 30);
 
 		muestra = mock(Muestra.class);
 		otraMuestra = mock(Muestra.class);
 		otraMuestraMuyLejos = mock(Muestra.class);
 
-		ubicacion3 = new Ubicacion(10d, 20d, zona);
-		ubicacion5 = new Ubicacion(60d, 60d, zona);
+		ubicacion3 = new Ubicacion(10d, 20d);
+		ubicacion5 = new Ubicacion(60d, 60d);
 		when(otraMuestra.getUbicacion()).thenReturn(ubicacion1); // ubicacion 50 40
 		when(muestra.getUbicacion()).thenReturn(ubicacion2); // ubicacion 40 50
 		when(otraMuestraMuyLejos.getUbicacion()).thenReturn(ubicacion5);
@@ -70,13 +70,5 @@ class UbicacionTestCase {
 		assertEquals(resultado, ubicacion1.getUbicacionesAMenosDe(1500d, ubicaciones));
 	}
 
-	@Test
-	void testMuestrasAMenosDe1359KmEnLaZonaDeCobertura() {
-		ubicacion1.getZona().agregarMuestra(otraMuestra);
-		ubicacion1.getZona().agregarMuestra(otraMuestraMuyLejos);
-
-		assertTrue(ubicacion1.muestrasCercanas(muestra, 1359.2545257553352).contains(otraMuestra));
-	
-	}
 
 }

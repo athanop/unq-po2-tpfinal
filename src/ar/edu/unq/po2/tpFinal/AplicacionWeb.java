@@ -54,8 +54,8 @@ public class AplicacionWeb {
 
 	}
 
-	public List<Muestra> muestrasCercanas(Muestra muestra, Double kilometros) {
-		return muestra.muestrasCercanas(muestra, kilometros);
+	public List<Muestra> muestrasCercanas(ZonaDeCobertura zona, Muestra muestra, Double kilometros) {
+		return zona.muestrasCercanas(muestra, kilometros);
 	}
 
 	public List<Muestra> filtrarMuestras(IFiltroBusquedaMuestra filtro) {

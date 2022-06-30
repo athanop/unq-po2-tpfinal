@@ -133,11 +133,6 @@ public class Muestra {
 		return (opinionMasVotada);
 	}
 
-	public List<Muestra> muestrasCercanas(Muestra muestra, Double kilometros) {
-		return this.ubicacion.muestrasCercanas(muestra, kilometros);
-
-	}
-
 	public void verificarMuestraConOpinionDeUsuario(Opinion opinion, Usuario usuario) throws Exception {
 		this.verificarMuestra();
 		this.agregarLaOpinionDelUsuario(opinion, usuario);

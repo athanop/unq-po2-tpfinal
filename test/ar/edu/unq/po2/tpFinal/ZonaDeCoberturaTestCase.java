@@ -21,11 +21,12 @@ class ZonaDeCoberturaTestCase {
 	IOrganizacionObserver suscriptor1;
 	IOrganizacionObserver suscriptor2;
 	Ubicacion ubicacion1, ubicacion2, ubicacion3, ubicacion4, ubicacion5;
-	Muestra muestra;
+	Muestra muestra, otraMuestra;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		muestra = mock(Muestra.class);
+		otraMuestra = mock(Muestra.class);
 		when(muestra.getNivelDeVerificacion()).thenReturn("verificada");
 		ubicacion1 = mock(Ubicacion.class);
 		ubicacion2 = mock(Ubicacion.class);
@@ -61,7 +62,6 @@ class ZonaDeCoberturaTestCase {
 		zonaDeCobertura.registrarseAZonaDeCobertura(suscriptor1);
 		zonaDeCobertura.registrarseAZonaDeCobertura(suscriptor2);
 
-		when(ubicacion1.getZona()).thenReturn(otraZonaDeCobertura);
 
 		zonaDeCobertura.agregarMuestra(muestra);
 
@@ -74,7 +74,7 @@ class ZonaDeCoberturaTestCase {
 		zonaDeCobertura.registrarseAZonaDeCobertura(suscriptor1);
 		zonaDeCobertura.registrarseAZonaDeCobertura(suscriptor2);
 
-		when(ubicacion1.getZona()).thenReturn(otraZonaDeCobertura);
+
 		zonaDeCobertura.agregarMuestra(muestra);
 
 		zonaDeCobertura.notificarNuevaVerificacion(muestra);
@@ -146,4 +146,25 @@ class ZonaDeCoberturaTestCase {
 		verify(organizacion).nuevaVerificacion(zonaDeCobertura, muestra);
 	}
 
+	
+	@Test
+	void testMuestrasAMenosDe1359KmEnLaZonaDeCobertura() {
+		
+		
+		ubicacion1 = new Ubicacion(50d, 40d);
+		ubicacion2 = new Ubicacion(123150d, 1241240d);
+		
+		when(muestra.getUbicacion()).thenReturn(ubicacion1); 
+		zonaDeCobertura = new ZonaDeCobertura("Berazategui", ubicacion1, 2000);
+		
+		
+		when(otraMuestra.getUbicacion()).thenReturn(ubicacion2);
+		
+		
+		zonaDeCobertura.agregarMuestra(muestra);
+		zonaDeCobertura.agregarMuestra(otraMuestra);
+
+		assertFalse(zonaDeCobertura.muestrasCercanas(muestra, 1359.2545257553352).contains(otraMuestra));
+	
+	}
 }

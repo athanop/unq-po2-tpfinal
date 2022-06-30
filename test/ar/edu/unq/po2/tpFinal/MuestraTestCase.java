@@ -53,8 +53,7 @@ class MuestraTestCase {
 		ubicacion = mock(Ubicacion.class);
 		fotoVinchuca = mock(BufferedImage.class);
 
-		when(ubicacion.getZona()).thenReturn(zona1);
-
+	
 		muestra = new Muestra(fotoVinchuca, ubicacion, sofiaBasico, opinionGuasayana, LocalDate.of(2022, 5, 13));
 
 		when(usuarioBasico.esUsuarioBasico()).thenReturn(true);
@@ -226,33 +225,5 @@ class MuestraTestCase {
 		assertEquals(Calificacion.CHINCHE_FOLIADA, muestra.getResultadoActual());
 	}
 
-	@Test
-	void testUnMuestraConoceSusMuestrasCercanas() throws Exception {
-		ZonaDeCobertura zonaDeCobertura = mock(ZonaDeCobertura.class);
-		ZonaDeCobertura zonaDeCobertura2 = mock(ZonaDeCobertura.class);
-		ZonaDeCobertura zonaDeCobertura3 = mock(ZonaDeCobertura.class);
-
-		Ubicacion ubicacion = new Ubicacion(40d, 50d, zonaDeCobertura);
-		Ubicacion ubicacion2 = new Ubicacion(50d, 40d, zonaDeCobertura2);
-		Ubicacion ubicacion3 = new Ubicacion(500d, 400d, zonaDeCobertura3);
-
-		when(zonaDeCobertura.getEpicentro()).thenReturn(ubicacion);
-		when(zonaDeCobertura2.getEpicentro()).thenReturn(ubicacion2);
-		when(zonaDeCobertura3.getEpicentro()).thenReturn(ubicacion3);
-
-		Muestra muestra1 = new Muestra(fotoVinchuca, ubicacion, sofiaBasico, opinionGuasayana,
-				LocalDate.of(2022, 5, 13));
-		Muestra muestra2 = new Muestra(fotoVinchuca, ubicacion2, nahuelExperto, opinionChincheFoliada2,
-				LocalDate.of(2022, 5, 13));
-		Muestra muestra3 = new Muestra(fotoVinchuca, ubicacion3, usuarioBasico, opinionGuasayana,
-				LocalDate.of(2022, 5, 13));
-
-		List<Muestra> muestras = Arrays.asList(muestra1, muestra2, muestra3);
-		when(zonaDeCobertura.getMuestras()).thenReturn(muestras);
-
-		assertTrue(muestra1.muestrasCercanas(muestra1, 1359.2545257553352).contains(muestra2));
-		assertTrue(muestra1.muestrasCercanas(muestra1, 1359.2545257553352).contains(muestra1));
-		assertFalse(muestra1.muestrasCercanas(muestra1, 1359.2545257553352).contains(muestra3));
-	}
 
 }

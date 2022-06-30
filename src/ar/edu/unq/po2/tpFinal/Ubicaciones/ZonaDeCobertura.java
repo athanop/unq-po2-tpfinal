@@ -77,7 +77,7 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 	}
 
 	public void agregarMuestra(Muestra muestra) {
-		if (this.perteneceAZonaDeCobertura(muestra)) {
+		if(muestra.getUbicacion().distanciaHasta(this.getEpicentro()) < this.getRadio()) {
 			muestras.add(muestra);
 			this.notificarNuevaMuestra(muestra);
 		}
@@ -85,11 +85,6 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 
 	public void muestraVerificada(Muestra muestra) {
 		this.notificarNuevaVerificacion(muestra);
-	}
-
-	private Boolean perteneceAZonaDeCobertura(Muestra muestra) {
-
-		return this.seSolapaCon(muestra.getUbicacion().getZona());
 	}
 
 	public Set<ZonaDeCobertura> zonasQueSolapan(Set<ZonaDeCobertura> zonas) {
@@ -105,5 +100,15 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 		if (seSolapaCon(zona)) {
 			zonasQueSolapan.add(zona);
 		}
+	}
+	
+	public List<Muestra> muestrasCercanas(Muestra muestra, Double distancia) {
+		List<Muestra> muestrascercanas = new ArrayList<Muestra>();
+		for (Muestra m : this.getMuestras()) {
+			if (m.getUbicacion().distanciaHasta(muestra.getUbicacion()) <= distancia) {
+				muestrascercanas.add(m);
+			}
+		}
+		return muestrascercanas;
 	}
 }

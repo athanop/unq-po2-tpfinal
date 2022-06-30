@@ -9,7 +9,7 @@ public class Ubicacion {
 
 	private Double latitud;
 	private Double longitud;
-	private ZonaDeCobertura zona;
+	
 
 	public Double getLatitud() {
 		return latitud;
@@ -19,19 +19,14 @@ public class Ubicacion {
 		return longitud;
 	}
 
-	public ZonaDeCobertura getZona() {
-		return zona;
-	}
-
 	public Ubicacion() {
 		this.latitud = 0d;
 		this.longitud = 0d;
 	}
 
-	public Ubicacion(Double latitud, Double longitud, ZonaDeCobertura zona) {
+	public Ubicacion(Double latitud, Double longitud) {
 		this.latitud = latitud;
 		this.longitud = longitud;
-		this.zona = zona;
 	}
 
 	public Double distanciaHasta(Ubicacion ubicacion) {
@@ -66,14 +61,6 @@ public class Ubicacion {
 		return this.distanciaHasta(ubicacion) < kilometros;
 	}
 
-	public List<Muestra> muestrasCercanas(Muestra muestra, Double distancia) {
-		List<Muestra> muestrascercanas = new ArrayList<Muestra>();
-		for (Muestra m : this.zona.getMuestras()) {
-			if (m.getUbicacion().distanciaHasta(muestra.getUbicacion()) <= distancia) {
-				muestrascercanas.add(m);
-			}
-		}
-		return muestrascercanas;
-	}
+	
 
 }

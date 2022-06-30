@@ -145,10 +145,10 @@ class AplicacionWebTestCase {
 	}
 
 	@Test
-	void testUnaAplicacionConoceLasMuestrasCercanasDeUnaMuestra() {
-		Ubicacion ubicacion = new Ubicacion(40d, 50d, zonaDeCobertura);
-		Ubicacion ubicacion2 = new Ubicacion(50d, 40d, zonaDeCobertura2);
-		Ubicacion ubicacion3 = new Ubicacion(500d, 400d, zonaDeCobertura3);
+	void testUnaAplicacionConoceLasMuestrasCercanasDeUnaZona() {
+		Ubicacion ubicacion = new Ubicacion(40d, 50d);
+		Ubicacion ubicacion2 = new Ubicacion(50d, 40d);
+		Ubicacion ubicacion3 = new Ubicacion(500d, 400d);
 
 		when(zonaDeCobertura.getEpicentro()).thenReturn(ubicacion);
 		when(zonaDeCobertura2.getEpicentro()).thenReturn(ubicacion2);
@@ -159,9 +159,9 @@ class AplicacionWebTestCase {
 		aplicacionWeb.registrarMuestra(muestra);
 		aplicacionWeb.registrarMuestra(muestra2);
 		aplicacionWeb.registrarMuestra(muestra3);
-		aplicacionWeb.muestrasCercanas(muestra, 1359.2545257553352);
+		aplicacionWeb.muestrasCercanas(zonaDeCobertura, muestra, 1359.2545257553352);
 
-		verify(muestra).muestrasCercanas(muestra, 1359.2545257553352);
+		verify(zonaDeCobertura).muestrasCercanas(muestra, 1359.2545257553352);
 	}
 
 }
