@@ -54,12 +54,12 @@ public class Organizacion implements IOrganizacionObserver {
 	}
 
 	public void registrarseAZonaDeCobertura(ZonaDeCobertura zonaDeCobertura) {
-		zonaDeCobertura.agregar(this);
+		zonaDeCobertura.registrarseAZonaDeCobertura(this);
 
 	}
 
 	public void dejarZonaDeCobertura(ZonaDeCobertura zonaDeCobertura) {
-		zonaDeCobertura.eliminar(this);
+		zonaDeCobertura.dejarZonaDeCobertura(this);
 
 	}
 

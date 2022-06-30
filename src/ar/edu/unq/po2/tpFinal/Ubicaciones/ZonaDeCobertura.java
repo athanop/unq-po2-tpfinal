@@ -53,12 +53,12 @@ public class ZonaDeCobertura implements IListenerZonaCobertura {
 	}
 
 	@Override
-	public void agregar(IOrganizacionObserver observer) {
+	public void registrarseAZonaDeCobertura(IOrganizacionObserver observer) {
 		this.observers.add(observer);
 	}
 
 	@Override
-	public void eliminar(IOrganizacionObserver observer) {
+	public void dejarZonaDeCobertura(IOrganizacionObserver observer) {
 		this.observers.remove(observer);
 	}
 

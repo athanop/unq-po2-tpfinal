@@ -64,7 +64,7 @@ class OrganizacionTestCase {
 
 		organizacion.registrarseAZonaDeCobertura(zonaDeCobertura);
 
-		verify(zonaDeCobertura).agregar(organizacion);
+		verify(zonaDeCobertura).registrarseAZonaDeCobertura(organizacion);
 	}
 
 	@Test
@@ -73,7 +73,7 @@ class OrganizacionTestCase {
 
 		organizacion.dejarZonaDeCobertura(zonaDeCobertura);
 
-		verify(zonaDeCobertura).eliminar(organizacion);
+		verify(zonaDeCobertura).dejarZonaDeCobertura(organizacion);
 	}
 
 }

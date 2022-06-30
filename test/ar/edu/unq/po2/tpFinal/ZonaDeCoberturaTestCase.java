@@ -45,21 +45,21 @@ class ZonaDeCoberturaTestCase {
 
 	@Test
 	void testSuscribirObserverAZonaDeCobertura() {
-		zonaDeCobertura.agregar(this.suscriptor1);
+		zonaDeCobertura.registrarseAZonaDeCobertura(this.suscriptor1);
 		assertEquals(1, zonaDeCobertura.getObservers().size());
 	}
 
 	@Test
 	void testDesuscribirObserverAZonaDeCobertura() {
-		zonaDeCobertura.agregar(this.suscriptor1);
-		zonaDeCobertura.eliminar(this.suscriptor1);
+		zonaDeCobertura.registrarseAZonaDeCobertura(this.suscriptor1);
+		zonaDeCobertura.dejarZonaDeCobertura(this.suscriptor1);
 		assertEquals(0, zonaDeCobertura.getObservers().size());
 	}
 
 	@Test
 	void testNotificarSuscriptoresNuevaMuestra() {
-		zonaDeCobertura.agregar(suscriptor1);
-		zonaDeCobertura.agregar(suscriptor2);
+		zonaDeCobertura.registrarseAZonaDeCobertura(suscriptor1);
+		zonaDeCobertura.registrarseAZonaDeCobertura(suscriptor2);
 
 		when(ubicacion1.getZona()).thenReturn(otraZonaDeCobertura);
 
@@ -71,8 +71,8 @@ class ZonaDeCoberturaTestCase {
 
 	@Test
 	void testNotificarSuscriptoresNuevaVerificacion() {
-		zonaDeCobertura.agregar(suscriptor1);
-		zonaDeCobertura.agregar(suscriptor2);
+		zonaDeCobertura.registrarseAZonaDeCobertura(suscriptor1);
+		zonaDeCobertura.registrarseAZonaDeCobertura(suscriptor2);
 
 		when(ubicacion1.getZona()).thenReturn(otraZonaDeCobertura);
 		zonaDeCobertura.agregarMuestra(muestra);
@@ -140,7 +140,7 @@ class ZonaDeCoberturaTestCase {
 	void testUnaZonaNotificaNuevaVerificacion() {
 		zonaDeCobertura = new ZonaDeCobertura("Berazategui", ubicacion1, 500);
 
-		zonaDeCobertura.agregar(organizacion);
+		zonaDeCobertura.registrarseAZonaDeCobertura(organizacion);
 		zonaDeCobertura.muestraVerificada(muestra);
 
 		verify(organizacion).nuevaVerificacion(zonaDeCobertura, muestra);
