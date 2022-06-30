@@ -24,7 +24,6 @@ public class EstadoMuestraVotadaPorExperto implements EstadoDeMuestra {
 	public void actualizarEstado(Muestra muestra) {
 		if (muestra.coincidenDosExpertosEnSuCalificacionDeOpinion()) {
 			muestra.setEstadoDeMuestra(new EstadoDeMuestraVerificada());
-			muestra.avisarVerificacionAZonaDeCobertura();
 		}
 
 	}

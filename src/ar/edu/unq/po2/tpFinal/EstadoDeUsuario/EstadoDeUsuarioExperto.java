@@ -3,16 +3,11 @@ package ar.edu.unq.po2.tpFinal.EstadoDeUsuario;
 import ar.edu.unq.po2.tpFinal.Muestra;
 import ar.edu.unq.po2.tpFinal.Opinion;
 
-public class EstadoDeUsuarioExperto implements EstadoDeUsuario {
+public class EstadoDeUsuarioExperto extends EstadoDeUsuario {
 	@Override
 	public void opinarSobreMuestra(Muestra muestra, Opinion opinion, Usuario usuario) throws Exception {
-		muestra.verificarMuestra();
-		muestra.agregarLaOpinionDelUsuario(opinion, usuario);
-	}
+		muestra.verificarMuestraConOpinionDeUsuario(opinion, usuario);
 
-	@Override
-	public Boolean esUsuarioBasico() {
-		return false;
 	}
 
 	@Override

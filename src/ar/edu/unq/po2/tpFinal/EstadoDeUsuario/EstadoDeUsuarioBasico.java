@@ -3,7 +3,7 @@ package ar.edu.unq.po2.tpFinal.EstadoDeUsuario;
 import ar.edu.unq.po2.tpFinal.Muestra;
 import ar.edu.unq.po2.tpFinal.Opinion;
 
-public class EstadoDeUsuarioBasico implements EstadoDeUsuario {
+public class EstadoDeUsuarioBasico extends EstadoDeUsuario {
 
 	@Override
 	public void opinarSobreMuestra(Muestra muestra, Opinion opinion, Usuario usuario) throws Exception {
@@ -13,11 +13,6 @@ public class EstadoDeUsuarioBasico implements EstadoDeUsuario {
 	@Override
 	public Boolean esUsuarioBasico() {
 		return true;
-	}
-
-	@Override
-	public Boolean esUsuarioExperto() {
-		return false;
 	}
 
 	@Override

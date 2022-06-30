@@ -85,10 +85,6 @@ public class Muestra {
 		return this.getEstadoMuestra().getNivelDeVerificacion(this);
 	}
 
-	public void avisarVerificacionAZonaDeCobertura() {
-		this.getUbicacion().getZona().muestraVerificada(this);
-	}
-
 	public boolean contieneAlUsuario(Usuario usuario) {
 		return this.historialDeOpiniones.containsKey(usuario);
 	}
@@ -120,11 +116,13 @@ public class Muestra {
 	}
 
 	public boolean coincidenDosExpertosEnSuCalificacionDeOpinion() {
-		final Set<Calificacion> calificacionDeOpiniones = new HashSet<Calificacion>();
-		getCalificacionDeOpiniones().stream().forEach(calificacion -> {
-			calificacionDeOpiniones.add(calificacion);
-		});
-		return getCalificacionDeOpiniones().size() > calificacionDeOpiniones.size() ? true : false;
+		final List<Calificacion> calificacionDeOpinionesEncontradas = new ArrayList<Calificacion>();
+		for (Calificacion calif:this.getCalificacionDeOpiniones()) {
+			if(calif.equals(this.getEspecieDeVinchuca())) {
+				calificacionDeOpinionesEncontradas.add(calif);
+			}
+		}
+		return calificacionDeOpinionesEncontradas.size() >= 2;
 	}
 
 	public Calificacion getResultadoActual() {
@@ -138,6 +136,12 @@ public class Muestra {
 	public List<Muestra> muestrasCercanas(Muestra muestra, Double kilometros) {
 		return this.ubicacion.muestrasCercanas(muestra, kilometros);
 
+	}
+
+	public void verificarMuestraConOpinionDeUsuario(Opinion opinion, Usuario usuario) throws Exception {
+		this.verificarMuestra();
+		this.agregarLaOpinionDelUsuario(opinion, usuario);
+		
 	}
 
 }

@@ -45,10 +45,10 @@ class UsuarioTestCase {
 		estadoExperto = mock(EstadoDeUsuario.class);
 		when(estadoExperto.esUsuarioExperto()).thenReturn(true);
 		app = mock(AplicacionWeb.class);
-		usuarioBasico = new Usuario("IdNahuel", app);
-		usuarioExperto = new Usuario("IdSofi", app);
-		usuarioExpertoJuli = new Usuario("IdCX", app);
-		usuarioEspecialista = new Usuario("IdJuli", app);
+		usuarioBasico = new Usuario("IdNahuel");
+		usuarioExperto = new Usuario("IdSofi");
+		usuarioExpertoJuli = new Usuario("IdCX");
+		usuarioEspecialista = new Usuario("IdJuli");
 		opinion = mock(Opinion.class);
 
 		when(opinion.getCalificacion()).thenReturn(Calificacion.GUASAYANA);
@@ -213,7 +213,7 @@ class UsuarioTestCase {
 		usuarioExperto.setOpinionesEnviadas(opiniones);
 		usuarioExperto.actualizarCategoria();
 		usuarioExperto.opinarSobreMuestra(muestra, opinion);
-		verify(muestra).agregarLaOpinionDelUsuario(opinion, usuarioExperto);
+		verify(muestra).verificarMuestraConOpinionDeUsuario(opinion, usuarioExperto);
 	}
 
 	// TEST USUARIO ESPECIALISTA
@@ -236,7 +236,7 @@ class UsuarioTestCase {
 
 	@Test
 	void testUnUsuarioQueEnviaUnaMuestraLeEnviaElMensajeALaAplicionWebParaRegistrarla() {
-		usuarioBasico.enviarMuestra(muestra);
+		usuarioBasico.enviarMuestra(muestra,app);
 		verify(app).registrarMuestra(muestra);
 	}
 

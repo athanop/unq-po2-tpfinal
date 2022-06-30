@@ -3,13 +3,17 @@ package ar.edu.unq.po2.tpFinal.EstadoDeUsuario;
 import ar.edu.unq.po2.tpFinal.Muestra;
 import ar.edu.unq.po2.tpFinal.Opinion;
 
-public interface EstadoDeUsuario {
+public abstract class EstadoDeUsuario {
 
 	public abstract void opinarSobreMuestra(Muestra muestra, Opinion opinion, Usuario usuario) throws Exception;
 
-	public abstract Boolean esUsuarioBasico();
+	public Boolean esUsuarioBasico() {
+		return false;
+	}
 
-	public abstract Boolean esUsuarioExperto();
+	public Boolean esUsuarioExperto() {
+		return false;
+	}
 
 	public abstract void actualizarCategoria(Usuario usuario);
 

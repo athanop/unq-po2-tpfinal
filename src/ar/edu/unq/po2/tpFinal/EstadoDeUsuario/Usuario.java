@@ -16,14 +16,12 @@ public class Usuario {
 	private String identificacion;
 	private Set<Muestra> muestras;
 	private List<Opinion> opinionesEnviadas;
-	private AplicacionWeb aplicacionWeb; 
 	private EstadoDeUsuario estadoDeUsuario;
 
-	public Usuario(String identificacion, AplicacionWeb aplicacionWeb) {
+	public Usuario(String identificacion) {
 		this.identificacion = identificacion;
 		this.muestras = new HashSet<Muestra>();
 		this.opinionesEnviadas = new ArrayList<Opinion>();
-		this.aplicacionWeb = aplicacionWeb;
 		this.estadoDeUsuario = new EstadoDeUsuarioBasico();
 	}
 
@@ -47,9 +45,9 @@ public class Usuario {
 		return this.muestras.size();
 	}
 
-	public void enviarMuestra(Muestra muestra) {
+	public void enviarMuestra(Muestra muestra, AplicacionWeb app) {
 		this.muestras.add(muestra);
-		this.aplicacionWeb.registrarMuestra(muestra);
+		app.registrarMuestra(muestra);
 	}
 
 	public void setEstadoDeUsuario(EstadoDeUsuario estadoDeUsuario) {
@@ -84,7 +82,7 @@ public class Usuario {
 		return this.opinionesDelUltimoMes().size();
 	}
 
-	public ArrayList<Opinion> opinionesDelUltimoMes() {
+	public List<Opinion> opinionesDelUltimoMes() {
 		ArrayList<Opinion> opinionesDelUltimoMes = new ArrayList<Opinion>();
 		for (Opinion opinion : this.getOpinionesEnviadas()) {
 			if (laOpinionEstaDentroDe30DiasDeLaFecha(opinion)) {
@@ -142,5 +140,7 @@ public class Usuario {
 	public void cambiarAUsuarioEspecialista() {
 		this.estadoDeUsuario = new EstadoDeUsuarioEspecialista();
 	}
+	
+	
 
 }

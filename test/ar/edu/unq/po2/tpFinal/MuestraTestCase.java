@@ -145,9 +145,11 @@ class MuestraTestCase {
 
 		muestra.verificarMuestra();
 		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, nahuelExperto);
+		
 
 		assertFalse(muestra.contieneLaOpinion(opinionGuasayana));
 		assertTrue(muestra.contieneLaOpinion(opinionChincheFoliada));
+		
 	}
 
 	@Test
