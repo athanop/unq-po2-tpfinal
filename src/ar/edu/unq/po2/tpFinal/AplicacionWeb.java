@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import ar.edu.unq.po2.tpFinal.EstadoDeUsuario.Usuario;
 import ar.edu.unq.po2.tpFinal.FiltroDeBusqueda.IFiltroBusquedaMuestra;
@@ -69,11 +70,8 @@ public class AplicacionWeb {
 
 	private Set<ZonaDeCobertura> listaDeZonasSin(ZonaDeCobertura zonaARemover) {
 		Set<ZonaDeCobertura> listaNueva = new HashSet<ZonaDeCobertura>();
-		for (ZonaDeCobertura zona : zonasDeCobertura) {
-			listaNueva.add(zona);
-		}
-		listaNueva.remove(zonaARemover);
-
+		listaNueva.addAll(getZonasDeCobertura());
+		listaNueva.stream().filter(zona -> !zona.equals(zonaARemover));
 		return listaNueva;
 	}
 

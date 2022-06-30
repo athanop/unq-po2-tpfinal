@@ -22,8 +22,12 @@ public class EstadoDeMuestraVotada implements EstadoDeMuestra {
 
 	@Override
 	public void actualizarEstado(Muestra muestra) throws Exception {
-		muestra.getHistorialDeOpiniones().clear();
+		this.limpiarHistorialDeOpiniones(muestra);
 		muestra.setEstadoDeMuestra(new EstadoMuestraVotadaPorExperto());
 
+	}
+
+	private void limpiarHistorialDeOpiniones(Muestra muestra) {
+		muestra.getHistorialDeOpiniones().clear();
 	}
 }
