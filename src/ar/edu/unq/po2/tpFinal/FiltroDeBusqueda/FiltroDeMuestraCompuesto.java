@@ -9,35 +9,39 @@ public abstract class FiltroDeMuestraCompuesto implements IFiltroBusquedaMuestra
 
 	private List<IFiltroBusquedaMuestra> tiposDeFiltrosChildren;
 
+	// un filtro compuesto siempre recibe 2 tipos d filtro para filtrar muestras
 	public FiltroDeMuestraCompuesto(IFiltroBusquedaMuestra filtro1, IFiltroBusquedaMuestra filtro2) {
 		this.tiposDeFiltrosChildren = new ArrayList<IFiltroBusquedaMuestra>();
-		this.addFiltro(filtro1);
-		this.addFiltro(filtro2);
+		this.tiposDeFiltrosChildren.add(filtro1);
+		this.tiposDeFiltrosChildren.add(filtro2);
 	}
 
 	public List<IFiltroBusquedaMuestra> getTiposDeFiltrosChildren() {
 		return tiposDeFiltrosChildren;
 	}
 
-	public void addFiltro(IFiltroBusquedaMuestra filtro) {
-		this.getTiposDeFiltrosChildren().add(filtro);
+	public List<Muestra> buscarMuestras(List<Muestra> muestras) {
+		IFiltroBusquedaMuestra filtro1 = this.getTiposDeFiltrosChildren().get(0);
+		IFiltroBusquedaMuestra filtro2 = this.getTiposDeFiltrosChildren().get(1);
+
+		List<Muestra> muestrasDeFiltro = this.buscarMuestrasQueCoincidaCon(muestras, filtro1, filtro2);
+
+		return muestrasDeFiltro;
 	}
 
-	// el template
-	public final List<Muestra> buscarMuestras(List<Muestra> muestras) {
-		List<Muestra> resultadoBusquedaCompuesta = new ArrayList<Muestra>();
+	public final List<Muestra> buscarMuestrasQueCoincidaCon(List<Muestra> muestras, IFiltroBusquedaMuestra filtro1,
+			IFiltroBusquedaMuestra filtro2) {
 
+		List<Muestra> resultadoMuestras = new ArrayList<Muestra>();
 		for (int i = 0; i < muestras.size(); i++) {
-			List<Muestra> muestrasDeFiltro1 = this.getTiposDeFiltrosChildren().get(0).buscarMuestras(muestras);
-			List<Muestra> muestrasDeFiltro2 = this.getTiposDeFiltrosChildren().get(1).buscarMuestras(muestras);
-			if (muestraEstaContenidaEnLosFiltros(muestras.get(i), muestrasDeFiltro1, muestrasDeFiltro2)) {
-				resultadoBusquedaCompuesta.add(muestras.get(i));
+			if (condicionDeBusqueda(muestras.get(i), filtro1, filtro2)) {
+				resultadoMuestras.add(muestras.get(i));
 			}
 		}
-		return resultadoBusquedaCompuesta;
+		return resultadoMuestras;
 	}
 
-	protected abstract Boolean muestraEstaContenidaEnLosFiltros(Muestra muestra,
-			List<Muestra> muestrasDeFiltro1, List<Muestra> muestrasDeFiltro2);
+	protected abstract Boolean condicionDeBusqueda(Muestra muestra, IFiltroBusquedaMuestra filtro1,
+			IFiltroBusquedaMuestra filtro2);
 
 }
