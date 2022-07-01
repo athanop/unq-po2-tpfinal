@@ -23,6 +23,7 @@ public class Muestra {
 	Calificacion especie;
 	Usuario usuario;
 	Ubicacion ubicacion;
+
 	EstadoDeMuestra estadoActual;
 	LocalDate fechaDeCreacion;
 	LocalDate fechaDeUltimaVotacion;
@@ -55,6 +56,10 @@ public class Muestra {
 
 	public Calificacion getEspecieDeVinchuca() {
 		return especie;
+	}
+
+	public void setEspecie(Calificacion especie) {
+		this.especie = especie;
 	}
 
 	public BufferedImage getFotoVinchuca() {
@@ -117,8 +122,8 @@ public class Muestra {
 
 	public boolean coincidenDosExpertosEnSuCalificacionDeOpinion() {
 		final List<Calificacion> calificacionDeOpinionesEncontradas = new ArrayList<Calificacion>();
-		for (Calificacion calif:this.getCalificacionDeOpiniones()) {
-			if(calif.equals(this.getEspecieDeVinchuca())) {
+		for (Calificacion calif : this.getCalificacionDeOpiniones()) {
+			if (calif.equals(this.getEspecieDeVinchuca())) {
 				calificacionDeOpinionesEncontradas.add(calif);
 			}
 		}
@@ -136,7 +141,7 @@ public class Muestra {
 	public void verificarMuestraConOpinionDeUsuario(Opinion opinion, Usuario usuario) throws Exception {
 		this.verificarMuestra();
 		this.agregarLaOpinionDelUsuario(opinion, usuario);
-		
+
 	}
 
 }

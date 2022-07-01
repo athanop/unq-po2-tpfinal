@@ -16,6 +16,7 @@ import ar.edu.unq.po2.tpFinal.Enumerativos.Calificacion;
 import ar.edu.unq.po2.tpFinal.EstadoDeMuestra.EstadoDeMuestra;
 import ar.edu.unq.po2.tpFinal.FiltroDeBusqueda.FiltroCompuestoAnd;
 import ar.edu.unq.po2.tpFinal.FiltroDeBusqueda.FiltroCompuestoOr;
+import ar.edu.unq.po2.tpFinal.FiltroDeBusqueda.FiltroDeMuestraCompuesto;
 import ar.edu.unq.po2.tpFinal.FiltroDeBusqueda.FiltroFechaDeCreacion;
 import ar.edu.unq.po2.tpFinal.FiltroDeBusqueda.FiltroNivelDeVerificacion;
 import ar.edu.unq.po2.tpFinal.FiltroDeBusqueda.FiltroTipoInsectoDetectado;
@@ -31,10 +32,10 @@ class FiltroTestCase {
 	IFiltroBusquedaMuestra filtroVotacion;
 	IFiltroBusquedaMuestra filtroNivelVerificacionVotada;
 	IFiltroBusquedaMuestra filtroNivelVerificacionVerificada;
-	IFiltroBusquedaMuestra filtroCompuestoAnd;
-	IFiltroBusquedaMuestra filtroCompuestoAnd2;
-	IFiltroBusquedaMuestra filtroCompuestoOR;
-	IFiltroBusquedaMuestra filtroCompuestoOR2;
+	FiltroDeMuestraCompuesto filtroCompuestoAnd;
+	FiltroDeMuestraCompuesto filtroCompuestoAnd2;
+	FiltroDeMuestraCompuesto filtroCompuestoOR;
+	FiltroDeMuestraCompuesto filtroCompuestoOR2;
 	List<Muestra> muestras;
 	Muestra muestraInfestans;
 	Muestra muestraGuasayana;
@@ -129,9 +130,28 @@ class FiltroTestCase {
 	}
 
 	@Test
-	void testFiltroCompuestoANDConFiltroInsectoYFiltroFecha() {
-		filtroCompuestoAnd = new FiltroCompuestoAnd(filtroFecha, filtroInsectoInfestans);
+	void testFiltroCompuestoANDConFiltroInsectoFiltroFecha() {
+		filtroCompuestoAnd = new FiltroCompuestoAnd();
+		filtroCompuestoAnd.agregarFiltro(filtroFecha);
+		filtroCompuestoAnd.agregarFiltro(filtroInsectoInfestans);
+		/*
+		 * que me filtre las muestras que son tipo insecto INFESTANS Y fecha
+		 * LocalDate.of(2022, 6, 17) osea la muestraInfestans
+		 */
 
+		List<Muestra> filtroCompuesto = filtroCompuestoAnd.buscarMuestras(muestras);
+
+		assertTrue(filtroCompuesto.contains(muestraInfestans));
+		assertFalse(filtroCompuesto.contains(muestraGuasayana));
+		assertFalse(filtroCompuesto.contains(muestraSordida));
+	}
+	
+	@Test
+	void testFiltroCompuestoANDConFiltroInsectoFiltroFechaYFiltroEstadoVerificado() {
+		filtroCompuestoAnd = new FiltroCompuestoAnd();
+		filtroCompuestoAnd.agregarFiltro(filtroFecha);
+		filtroCompuestoAnd.agregarFiltro(filtroInsectoInfestans);
+		filtroCompuestoAnd.agregarFiltro(filtroNivelVerificacionVerificada);
 		/*
 		 * que me filtre las muestras que son tipo insecto INFESTANS Y fecha
 		 * LocalDate.of(2022, 6, 17) osea la muestraInfestans
@@ -146,8 +166,13 @@ class FiltroTestCase {
 
 	@Test
 	void testFiltroCompuestoANDConFiltroInsectoYOtroFiltroCompuestoAND() {
-		filtroCompuestoAnd2 = new FiltroCompuestoAnd(filtroFecha, filtroVotacion);
-		filtroCompuestoAnd = new FiltroCompuestoAnd(filtroInsectoGuasayana, filtroCompuestoAnd2);
+		filtroCompuestoAnd2 = new FiltroCompuestoAnd();
+		filtroCompuestoAnd2.agregarFiltro(filtroFecha);
+		filtroCompuestoAnd2.agregarFiltro(filtroVotacion);
+		
+		filtroCompuestoAnd = new FiltroCompuestoAnd();
+		filtroCompuestoAnd.agregarFiltro(filtroInsectoGuasayana);
+		filtroCompuestoAnd.agregarFiltro(filtroCompuestoAnd2);
 		// guasayana y LocalDate.of(2022, 6, 17) fecha y LocalDate.of(2022, 5, 15)
 		// votacion
 
@@ -160,7 +185,9 @@ class FiltroTestCase {
 
 	@Test
 	void testFiltroCompuestoORConFiltroInsectoOYFiltroNivelVotada() {
-		filtroCompuestoOR = new FiltroCompuestoOr(filtroNivelVerificacionVotada, filtroInsectoInfestans);
+		filtroCompuestoOR = new FiltroCompuestoOr();
+		filtroCompuestoOR.agregarFiltro(filtroNivelVerificacionVotada);
+		filtroCompuestoOR.agregarFiltro(filtroInsectoInfestans);
 		// muestras de nivel "votada" OR infestans
 
 		List<Muestra> filtroCompuesto = filtroCompuestoOR.buscarMuestras(muestras);
@@ -172,8 +199,13 @@ class FiltroTestCase {
 
 	@Test
 	void testFiltroCompuestoORConFiltroNivelVerificadaYOtroCompuestoOR() {
-		filtroCompuestoOR2 = new FiltroCompuestoOr(filtroVotacion, filtroInsectoGuasayana);
-		filtroCompuestoOR = new FiltroCompuestoOr(filtroNivelVerificacionVerificada, filtroCompuestoOR2);
+		filtroCompuestoOR2 = new FiltroCompuestoOr();
+		filtroCompuestoOR2.agregarFiltro(filtroVotacion);
+		filtroCompuestoOR2.agregarFiltro(filtroInsectoGuasayana);
+		
+		filtroCompuestoOR = new FiltroCompuestoOr();
+		filtroCompuestoOR.agregarFiltro(filtroNivelVerificacionVerificada);
+		filtroCompuestoOR.agregarFiltro(filtroCompuestoOR2);
 
 		List<Muestra> filtroCompuesto = filtroCompuestoOR.buscarMuestras(muestras);
 
@@ -184,8 +216,13 @@ class FiltroTestCase {
 
 	@Test
 	void testFiltroCompuestoANDCombinadoConFiltroCompuestoOR() {
-		filtroCompuestoOR = new FiltroCompuestoOr(filtroNivelVerificacionVerificada, filtroVotacion);
-		filtroCompuestoAnd = new FiltroCompuestoAnd(filtroInsectoSordida, filtroCompuestoOR);
+		filtroCompuestoOR = new FiltroCompuestoOr();
+		filtroCompuestoOR.agregarFiltro(filtroNivelVerificacionVerificada);
+		filtroCompuestoOR.agregarFiltro(filtroVotacion);
+		
+		filtroCompuestoAnd = new FiltroCompuestoAnd();
+		filtroCompuestoAnd.agregarFiltro(filtroInsectoSordida);
+		filtroCompuestoAnd.agregarFiltro(filtroCompuestoOR);
 
 		List<Muestra> filtroCompuesto = filtroCompuestoAnd.buscarMuestras(muestras);
 

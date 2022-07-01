@@ -1,24 +1,21 @@
 package ar.edu.unq.po2.tpFinal.FiltroDeBusqueda;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ar.edu.unq.po2.tpFinal.Muestra;
 
 public class FiltroCompuestoAnd extends FiltroDeMuestraCompuesto {
 
-	public FiltroCompuestoAnd(IFiltroBusquedaMuestra filtro1, IFiltroBusquedaMuestra filtro2) {
-		super(filtro1, filtro2);
-	}
+	public List<Muestra> buscarMuestras(List<Muestra> muestras) {
+		List<Muestra> resultadosMuestras = new ArrayList<Muestra>();
+		resultadosMuestras.addAll(super.getTiposDeFiltrosChildren().get(0).buscarMuestras(muestras));
+		for (IFiltroBusquedaMuestra filtro : super.getTiposDeFiltrosChildren()) {
+			List<Muestra> muestrasFiltradas = filtro.buscarMuestras(muestras);
+			resultadosMuestras.retainAll(muestrasFiltradas);
 
-	@Override
-	public Boolean coincideCon(Muestra muestra) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected Boolean condicionDeBusqueda(Muestra muestra, IFiltroBusquedaMuestra filtro1,
-			IFiltroBusquedaMuestra filtro2) {
-
-		return filtro1.coincideCon(muestra) && filtro2.coincideCon(muestra);
+		}
+		return resultadosMuestras;
 	}
 
 }

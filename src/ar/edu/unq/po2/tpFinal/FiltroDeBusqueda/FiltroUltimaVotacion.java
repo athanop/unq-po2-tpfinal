@@ -1,6 +1,8 @@
 package ar.edu.unq.po2.tpFinal.FiltroDeBusqueda;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import ar.edu.unq.po2.tpFinal.Muestra;
 
@@ -13,7 +15,13 @@ public class FiltroUltimaVotacion implements IFiltroBusquedaMuestra {
 	}
 
 	@Override
-	public Boolean coincideCon(Muestra muestra) {
-		return this.fechaUltimaVotacion.equals(muestra.getFechaUltimaVotacion());
+	public List<Muestra> buscarMuestras(List<Muestra> muestras) {
+		List<Muestra> resultadoBusqueda = new ArrayList<Muestra>();
+		for (int i = 0; i < muestras.size(); i++) {
+			if (this.fechaUltimaVotacion.equals(muestras.get(i).getFechaUltimaVotacion())) {
+				resultadoBusqueda.add(muestras.get(i));
+			}
+		}
+		return resultadoBusqueda;
 	}
 }

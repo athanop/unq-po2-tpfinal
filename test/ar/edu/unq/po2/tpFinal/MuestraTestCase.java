@@ -53,7 +53,6 @@ class MuestraTestCase {
 		ubicacion = mock(Ubicacion.class);
 		fotoVinchuca = mock(BufferedImage.class);
 
-	
 		muestra = new Muestra(fotoVinchuca, ubicacion, sofiaBasico, opinionGuasayana, LocalDate.of(2022, 5, 13));
 
 		when(usuarioBasico.esUsuarioBasico()).thenReturn(true);
@@ -144,15 +143,17 @@ class MuestraTestCase {
 
 		muestra.verificarMuestra();
 		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, nahuelExperto);
-		
 
 		assertFalse(muestra.contieneLaOpinion(opinionGuasayana));
 		assertTrue(muestra.contieneLaOpinion(opinionChincheFoliada));
-		
+
 	}
 
 	@Test
 	void testDosExpertosCoincidenEnSuOpinionVerificandoLaMuestra() throws Exception {
+		muestra.setEspecie(Calificacion.GUASAYANA);
+		// pusimos este setter en este test para no tener que modificar el constructor
+		// de muestra (nos olvidamos)
 		muestra.verificarMuestra();
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, nahuelExperto);
 		muestra.agregarLaOpinionDelUsuario(opinionGuasayana, usuarioExperto);
@@ -162,11 +163,15 @@ class MuestraTestCase {
 		assertEquals("verificada", muestra.getNivelDeVerificacion());
 	}
 
-	@Test
+	@Test // (expected =OutOfRangeException.class)
 	void testUnaMuestraVerificadaNoSePuedeVolverAVerificar() throws Exception {
+		muestra.setEspecie(Calificacion.CHINCHE_FOLIADA);
+		when(opinionChincheFoliada.getCalificacion()).thenReturn(Calificacion.CHINCHE_FOLIADA);
+
 		muestra.verificarMuestra();
 		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, usuarioExperto);
-		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada2, nahuelExperto);
+		muestra.agregarLaOpinionDelUsuario(opinionChincheFoliada, nahuelExperto);
+
 		muestra.verificarMuestra();
 
 		assertThrows(Exception.class, () -> muestra.verificarMuestra());
@@ -224,6 +229,5 @@ class MuestraTestCase {
 
 		assertEquals(Calificacion.CHINCHE_FOLIADA, muestra.getResultadoActual());
 	}
-
 
 }

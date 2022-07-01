@@ -1,6 +1,10 @@
 package ar.edu.unq.po2.tpFinal.FiltroDeBusqueda;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ar.edu.unq.po2.tpFinal.Muestra;
+import ar.edu.unq.po2.tpFinal.EstadoDeMuestra.EstadoDeMuestra;
 
 public class FiltroNivelDeVerificacion implements IFiltroBusquedaMuestra {
 
@@ -11,7 +15,14 @@ public class FiltroNivelDeVerificacion implements IFiltroBusquedaMuestra {
 	}
 
 	@Override
-	public Boolean coincideCon(Muestra muestra) {
-		return this.nivelVerificacion.equals(muestra.getNivelDeVerificacion());
+	public List<Muestra> buscarMuestras(List<Muestra> muestras) {
+		List<Muestra> resultadoBusqueda = new ArrayList<Muestra>();
+		for (int i = 0; i < muestras.size(); i++) {
+			EstadoDeMuestra estado = muestras.get(i).getEstadoMuestra();
+			if (this.nivelVerificacion.equals(estado.getNivelDeVerificacion(muestras.get(i)))) {
+				resultadoBusqueda.add(muestras.get(i));
+			}
+		}
+		return resultadoBusqueda;
 	}
 }
